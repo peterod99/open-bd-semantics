@@ -1,0 +1,1 @@
+id,decision_type,entity_type,entity_id,entity_name,decision_date,decision_outcome,decision_reasoning,previous_state,new_state,criteria_evaluated,evidence_refs,rules_considered,confidence_level,trigger_context,outcome_validated,outcome_validated_at,outcome_notes,deleted_at,user_id,created_at,updated_at

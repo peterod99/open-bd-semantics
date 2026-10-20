@@ -1,0 +1,5 @@
+id,pipeline_id,name,slug,stage_type,display_order,default_probability,target_days,color,exit_criteria,coaching_tips,created_at,updated_at
+00000002-0000-4000-8000-ffffffffffff,00000001-0000-4000-8000-ffffffffffff,Discovery,discovery,active,1,,,,,,2026-01-01T00:00:00Z,2026-01-01T00:00:00Z
+00000003-0000-4000-8000-ffffffffffff,00000001-0000-4000-8000-ffffffffffff,Proposal,proposal,active,2,,,,,,2026-01-01T00:00:00Z,2026-01-01T00:00:00Z
+00000004-0000-4000-8000-ffffffffffff,00000001-0000-4000-8000-ffffffffffff,Won,won,won,3,,,,,,2026-01-01T00:00:00Z,2026-01-01T00:00:00Z
+00000005-0000-4000-8000-ffffffffffff,00000001-0000-4000-8000-ffffffffffff,Lost,lost,lost,4,,,,,,2026-01-01T00:00:00Z,2026-01-01T00:00:00Z

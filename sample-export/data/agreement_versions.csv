@@ -1,0 +1,1 @@
+id,agreement_id,version_kind,version_number,source_deal_id,source_label,currency,effective_from,term_ends_on,accepted_at,acceptance_source,acceptance_reason,signed_at,signed_by_name,seller_user_id,deal_owner_id,terms_snapshot,source_line_committed_value_total,booked_on,supersedes_version_id,created_at

@@ -1,0 +1,1 @@
+id,target_contact_id,connector_contact_id,connector_relationship_score,path_contacts,path_length,path_strength,path_basis,basis_company_id,basis_ended_at,is_best_path,path_status,discovered_at,expires_at,user_id

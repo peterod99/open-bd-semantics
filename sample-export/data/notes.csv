@@ -1,0 +1,7 @@
+id,contact_id,content,is_pinned,is_private,sentiment,user_id,created_at,updated_at
+00000021-0000-4000-8000-ffffffffffff,0000000a-0000-4000-8000-aaaaaaaaaaaa,Avery Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z
+0000002e-0000-4000-8000-ffffffffffff,0000000c-0000-4000-8000-aaaaaaaaaaaa,Casey Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z
+0000003a-0000-4000-8000-ffffffffffff,0000000e-0000-4000-8000-aaaaaaaaaaaa,Emery Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z
+00000046-0000-4000-8000-ffffffffffff,00000010-0000-4000-8000-aaaaaaaaaaaa,Harper Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z
+00000052-0000-4000-8000-ffffffffffff,00000012-0000-4000-8000-aaaaaaaaaaaa,Kendall Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z
+0000005f-0000-4000-8000-ffffffffffff,00000014-0000-4000-8000-aaaaaaaaaaaa,Morgan Stone prefers a short weekly check-in and dislikes long decks.,false,false,,00000001-0000-4000-8000-dddddddddddd,2026-03-05T00:00:00Z,2026-03-05T00:00:00Z

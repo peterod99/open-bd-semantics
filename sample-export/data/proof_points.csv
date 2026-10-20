@@ -1,0 +1,2 @@
+id,title,type,claim,supporting_details,source,source_type,source_url,source_document_name,service_id,target_personas,relevance_tags,usage_scenarios,emotional_trigger,strength_score,credibility_score,status,is_published,deleted_at,user_id,created_at,updated_at
+00000076-0000-4000-8000-ffffffffffff,Northwind Analytics cut onboarding time by 40%,case_study,Northwind Analytics cut onboarding time by 40% in one quarter.,Measured against the previous quarter.,client,,,,,,,,,,,approved,true,,00000001-0000-4000-8000-dddddddddddd,2026-03-01T00:00:00Z,2026-03-01T00:00:00Z

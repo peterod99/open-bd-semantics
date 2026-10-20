@@ -1,0 +1,2 @@
+id,title,description,status,priority,due_date,completed_at,assigned_to,created_by,entity_type,entity_id,created_at,updated_at,assigned_to_name,created_by_name
+00000080-0000-4000-8000-ffffffffffff,Follow up with Blake Stone,,open,high,2026-04-20,,00000003-0000-4000-8000-dddddddddddd,00000001-0000-4000-8000-dddddddddddd,contact,0000000b-0000-4000-8000-aaaaaaaaaaaa,2026-04-01T00:00:00Z,2026-04-01T00:00:00Z,Shared Member,Owner One

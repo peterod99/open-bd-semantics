@@ -1,0 +1,2 @@
+id,pattern_type,insight,evidence,applies_to,confidence,status,validated_at,user_id,created_at
+00000078-0000-4000-8000-ffffffffffff,win,Deals with an operations review in discovery close twice as often.,{},{},{},validated,2026-05-01T00:00:00Z,00000001-0000-4000-8000-dddddddddddd,2026-05-01T00:00:00Z

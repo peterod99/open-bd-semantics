@@ -1,0 +1,61 @@
+id,contact_id,thread_id,conversation_id,subject,snippet,body_text,from_email,from_name,sender_email,recipient_email,to_emails,cc_emails,received_at,has_attachments,labels,is_read,is_starred,is_archived,ai_summary,ai_category,ai_sentiment,ai_action_items,priority_score,user_id,created_at,updated_at
+00000020-0000-4000-8000-ffffffffffff,0000000a-0000-4000-8000-aaaaaaaaaaaa,thread-0,,Re: proposal for Northwind Analytics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Northwind Analytics. Can we talk on Tuesday about the timeline?
+
+Avery Stone",avery.stone@northwindanalytics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000028-0000-4000-8000-ffffffffffff,0000000b-0000-4000-8000-aaaaaaaaaaaa,thread-1,,Re: proposal for Harbourlight Consulting,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Harbourlight Consulting. Can we talk on Tuesday about the timeline?
+
+Blake Stone",blake.stone@harbourlightconsulting.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+0000002d-0000-4000-8000-ffffffffffff,0000000c-0000-4000-8000-aaaaaaaaaaaa,thread-2,,Re: proposal for Greenfold Logistics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Greenfold Logistics. Can we talk on Tuesday about the timeline?
+
+Casey Stone",casey.stone@greenfoldlogistics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000033-0000-4000-8000-ffffffffffff,0000000d-0000-4000-8000-aaaaaaaaaaaa,thread-3,,Re: proposal for Meridian Ledger,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Meridian Ledger. Can we talk on Tuesday about the timeline?
+
+Devon Stone",devon.stone@meridianledger.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000039-0000-4000-8000-ffffffffffff,0000000e-0000-4000-8000-aaaaaaaaaaaa,thread-4,,Re: proposal for Northwind Analytics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Northwind Analytics. Can we talk on Tuesday about the timeline?
+
+Emery Stone",emery.stone@northwindanalytics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000040-0000-4000-8000-ffffffffffff,0000000f-0000-4000-8000-aaaaaaaaaaaa,thread-5,,Re: proposal for Harbourlight Consulting,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Harbourlight Consulting. Can we talk on Tuesday about the timeline?
+
+Finley Stone",finley.stone@harbourlightconsulting.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000045-0000-4000-8000-ffffffffffff,00000010-0000-4000-8000-aaaaaaaaaaaa,thread-6,,Re: proposal for Greenfold Logistics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Greenfold Logistics. Can we talk on Tuesday about the timeline?
+
+Harper Stone",harper.stone@greenfoldlogistics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+0000004c-0000-4000-8000-ffffffffffff,00000011-0000-4000-8000-aaaaaaaaaaaa,thread-7,,Re: proposal for Meridian Ledger,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Meridian Ledger. Can we talk on Tuesday about the timeline?
+
+Jordan Stone",jordan.stone@meridianledger.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000051-0000-4000-8000-ffffffffffff,00000012-0000-4000-8000-aaaaaaaaaaaa,thread-8,,Re: proposal for Northwind Analytics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Northwind Analytics. Can we talk on Tuesday about the timeline?
+
+Kendall Stone",kendall.stone@northwindanalytics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000058-0000-4000-8000-ffffffffffff,00000013-0000-4000-8000-aaaaaaaaaaaa,thread-9,,Re: proposal for Harbourlight Consulting,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Harbourlight Consulting. Can we talk on Tuesday about the timeline?
+
+Logan Stone",logan.stone@harbourlightconsulting.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+0000005e-0000-4000-8000-ffffffffffff,00000014-0000-4000-8000-aaaaaaaaaaaa,thread-10,,Re: proposal for Greenfold Logistics,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Greenfold Logistics. Can we talk on Tuesday about the timeline?
+
+Morgan Stone",morgan.stone@greenfoldlogistics.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z
+00000064-0000-4000-8000-ffffffffffff,00000015-0000-4000-8000-aaaaaaaaaaaa,thread-11,,Re: proposal for Meridian Ledger,"Thanks, this looks right. Can we talk Tuesday?","Hi,
+
+Thanks for the proposal for Meridian Ledger. Can we talk on Tuesday about the timeline?
+
+Parker Stone",parker.stone@meridianledger.example.test,,,,,,2026-04-02T08:30:00Z,,,,,,Wants to discuss the timeline on Tuesday.,,,,,00000001-0000-4000-8000-dddddddddddd,2026-04-02T08:30:00Z,2026-04-02T08:30:00Z

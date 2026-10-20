@@ -1,0 +1,2 @@
+id,canonical_belief_id,contact_id,deal_id,belief_kind,belief_text,verbatim_quote,context,sentiment,addressed,source_type,source_id,observed_at,user_id,created_at
+00000079-0000-4000-8000-ffffffffffff,,0000000a-0000-4000-8000-aaaaaaaaaaaa,00000016-0000-4000-8000-eeeeeeeeeeee,objection,Consultants slow us down.,Last time a consultancy slowed us down for months.,Discovery call,negative,true,meeting,,2026-02-20T00:00:00Z,00000001-0000-4000-8000-dddddddddddd,2026-02-20T00:00:00Z

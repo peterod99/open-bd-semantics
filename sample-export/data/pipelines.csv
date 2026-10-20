@@ -1,0 +1,2 @@
+id,name,description,pipeline_kind,methodology_slug,is_default,display_order,config,created_at,updated_at
+00000001-0000-4000-8000-ffffffffffff,A pipeline,,sales,,true,1,,2026-01-01T00:00:00Z,2026-01-01T00:00:00Z

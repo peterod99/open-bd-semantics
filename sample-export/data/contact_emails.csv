@@ -1,0 +1,1 @@
+id,contact_id,email,label,is_primary,verified,source,consent_status,consent_source,consent_updated_at,do_not_contact,do_not_contact_at,do_not_contact_reason,unsubscribed,unsubscribed_at,bounced,bounced_at,bounce_type,complained,created_at

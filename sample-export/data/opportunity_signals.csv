@@ -1,0 +1,1 @@
+id,contact_id,company_id,deal_id,signal_type,title,summary,original_quote,trigger_reasoning,suggested_action,estimated_value,confidence_score,status,action_taken,acted_at,resulting_deal_id,source_type,source_entity_id,source_date,user_id,created_at,updated_at

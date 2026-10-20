@@ -1,0 +1,9 @@
+Open BD semantics
+Copyright 2026 Nynch
+
+This repository contains the business-development definitions, glossary,
+exit manifest and sample export published by Nynch (https://nynch.com),
+licensed under the Apache License, Version 2.0.
+
+The definitions are written in the Apache Ossie format. Apache Ossie is a
+project of The Apache Software Foundation (https://www.apache.org/).

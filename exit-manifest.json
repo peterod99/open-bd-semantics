@@ -1,0 +1,4161 @@
+{
+  "format_version": "1.0",
+  "definitions_version": "2026-10-20",
+  "generated_from": "supabase/functions/_shared/workspace-memory-export/registry.ts",
+  "what_you_get": {
+    "folder_layout": [
+      "README.md",
+      "manifest.json",
+      "data/<dataset>.csv",
+      "data/<dataset>.jsonl",
+      "memory/relationships/<name>-<id>.md",
+      "memory/accounts/<name>-<id>.md",
+      "memory/learnings/*.md",
+      "transcripts/<meeting-id>.md",
+      "proposals/<id>.json",
+      "proposals/<id>.md",
+      "semantics/nynch-bd.ossie.yaml"
+    ],
+    "formats": [
+      "CSV (UTF-8, header row)",
+      "JSON Lines",
+      "Markdown with YAML front matter",
+      "Apache Ossie YAML"
+    ],
+    "who_can_start_it": "A workspace owner or admin, after two-step verification. Every export is written to the audit log.",
+    "typical_duration": {
+      "small_workspace": "Under two minutes for a few hundred people.",
+      "large_workspace": "Ten to fifteen minutes for about 20,000 people and 60,000 conversations, across two or three background runs; a run that stops resumes from where it stopped.",
+      "retention": "Ready to download for seven days, then deleted."
+    },
+    "page_size_rows": 1000,
+    "retention_days": 7
+  },
+  "datasets": [
+    {
+      "dataset": "companies",
+      "description": "Every company (account) with its firmographics, tier and enrichment.",
+      "sources": [
+        {
+          "table": "companies",
+          "reach": "workspace_id",
+          "columns": 48
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "people",
+      "description": "Every person in the workspace with their profile, status, owner and relationship scores.",
+      "sources": [
+        {
+          "table": "contacts",
+          "reach": "workspace_id",
+          "columns": 83
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "opportunities",
+      "description": "Deals: the live pipeline rail. Status is derived from outcome (null = open). Opportunities: the retiring rail, kept read-only. Same thing as a deal; the rail column tells them apart.",
+      "sources": [
+        {
+          "table": "deals",
+          "reach": "workspace_id",
+          "columns": 64
+        },
+        {
+          "table": "opportunities",
+          "reach": "workspace_id",
+          "columns": 43
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship",
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "pipelines",
+      "description": "Pipelines the deals move through.",
+      "sources": [
+        {
+          "table": "pipelines",
+          "reach": "workspace_id",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "pipeline_stages",
+      "description": "Stages per pipeline. stage_type (active, won, lost) is the canonical stage mapping.",
+      "sources": [
+        {
+          "table": "pipeline_stages",
+          "reach": "via_pipeline",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_people",
+      "description": "Which people are attached to which deals.",
+      "sources": [
+        {
+          "table": "deal_contacts",
+          "reach": "via_deal",
+          "columns": 4
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_stakeholders",
+      "description": "Stakeholder maps per deal: role, influence, support and concerns.",
+      "sources": [
+        {
+          "table": "deal_stakeholders",
+          "reach": "via_deal",
+          "columns": 25
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "buying_committee",
+      "description": "Buying committee members per deal.",
+      "sources": [
+        {
+          "table": "buying_committee_members",
+          "reach": "workspace_id",
+          "columns": 14
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_activities",
+      "description": "Activities logged against deals.",
+      "sources": [
+        {
+          "table": "deal_activities",
+          "reach": "via_deal",
+          "columns": 11
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_stage_history",
+      "description": "Every stage move with how long the deal sat in the previous stage.",
+      "sources": [
+        {
+          "table": "deal_stage_history",
+          "reach": "via_deal",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_comments",
+      "description": "Comments on deals.",
+      "sources": [
+        {
+          "table": "deal_comments",
+          "reach": "workspace_id",
+          "columns": 7
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_lines",
+      "description": "Service lines priced on each deal.",
+      "sources": [
+        {
+          "table": "deal_lines",
+          "reach": "workspace_id",
+          "columns": 31
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "interactions",
+      "description": "Every recorded touch with a person: emails, meetings, calls, messages and manual notes of contact.",
+      "sources": [
+        {
+          "table": "contact_interactions",
+          "reach": "via_contact",
+          "columns": 14
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "activities",
+      "description": "The older activity log per person.",
+      "sources": [
+        {
+          "table": "contact_activities",
+          "reach": "workspace_id",
+          "columns": 12
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "email_messages",
+      "description": "Imported email messages linked to a person (text bodies, no HTML). Messages not linked to a person are not reachable by workspace and are left out.",
+      "sources": [
+        {
+          "table": "email_messages",
+          "reach": "via_contact",
+          "columns": 27
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "email_threads",
+      "description": "Thread-level summaries, commitments and signals.",
+      "sources": [
+        {
+          "table": "email_threads",
+          "reach": "via_contact",
+          "columns": 18
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "sent_emails",
+      "description": "Emails sent from Nynch (text bodies).",
+      "sources": [
+        {
+          "table": "sent_emails",
+          "reach": "workspace_id",
+          "columns": 19
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "linkedin_messages",
+      "description": "LinkedIn messages imported from the extension.",
+      "sources": [
+        {
+          "table": "linkedin_messages",
+          "reach": "workspace_id",
+          "columns": 14
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "chat_messages",
+      "description": "WhatsApp, Slack and other chat messages synced to a person.",
+      "sources": [
+        {
+          "table": "chat_messages_sync",
+          "reach": "workspace_id",
+          "columns": 20
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "meetings",
+      "description": "Meeting records with summaries, commitments and full transcripts (also written to transcripts/).",
+      "sources": [
+        {
+          "table": "meeting_transcripts",
+          "reach": "workspace_id",
+          "columns": 25
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "calendar_events",
+      "description": "Imported calendar events and their attendees.",
+      "sources": [
+        {
+          "table": "calendar_events",
+          "reach": "workspace_id",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "meeting_attendees",
+      "description": "Who attended which meeting.",
+      "sources": [
+        {
+          "table": "meeting_attendees",
+          "reach": "via_contact",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "notes",
+      "description": "Notes written on people.",
+      "sources": [
+        {
+          "table": "contact_notes",
+          "reach": "via_contact",
+          "columns": 9
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "comments",
+      "description": "Teammate comments on people, companies and deals.",
+      "sources": [
+        {
+          "table": "record_comments",
+          "reach": "workspace_id",
+          "columns": 7
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "tasks",
+      "description": "Team tasks.",
+      "sources": [
+        {
+          "table": "team_tasks",
+          "reach": "workspace_id",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "action_items",
+      "description": "Personal action items tied to people and deals.",
+      "sources": [
+        {
+          "table": "action_items",
+          "reach": "workspace_id",
+          "columns": 17
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "commitments",
+      "description": "Promises made and received.",
+      "sources": [
+        {
+          "table": "commitments",
+          "reach": "workspace_id",
+          "columns": 16
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "genuine_commitments",
+      "description": "Commitments confirmed as genuine from conversations.",
+      "sources": [
+        {
+          "table": "genuine_commitments",
+          "reach": "workspace_id",
+          "columns": 16
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "company_people",
+      "description": "Which people belong to which companies, including secondary associations.",
+      "sources": [
+        {
+          "table": "company_contact_associations",
+          "reach": "workspace_id",
+          "columns": 9
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "employment_history",
+      "description": "Past and present roles per person.",
+      "sources": [
+        {
+          "table": "contact_employment_history",
+          "reach": "via_contact",
+          "columns": 9
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "contact_emails",
+      "description": "Every email address per person with consent and deliverability state.",
+      "sources": [
+        {
+          "table": "contact_emails",
+          "reach": "via_contact",
+          "columns": 20
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "contextual_roles",
+      "description": "What a person is to the firm on an account, agreement, project or deal.",
+      "sources": [
+        {
+          "table": "contact_contextual_roles",
+          "reach": "workspace_id",
+          "columns": 16
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "company_signals",
+      "description": "Company signals as the workspace sees them (funding, hiring, leadership, news).",
+      "sources": [
+        {
+          "table": "current_company_signals",
+          "reach": "workspace_id",
+          "columns": 16
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "contact_signals",
+      "description": "Detected changes about a person (job moves, title changes).",
+      "sources": [
+        {
+          "table": "contact_signals",
+          "reach": "via_contact",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "social_signals",
+      "description": "Social activity signals per person.",
+      "sources": [
+        {
+          "table": "social_signals",
+          "reach": "via_contact",
+          "columns": 11
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "opportunity_signals",
+      "description": "Buying signals spotted in conversations.",
+      "sources": [
+        {
+          "table": "opportunity_signals",
+          "reach": "via_contact_or_company",
+          "columns": 22
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "signals",
+      "description": "Revenue signals (expansion, upsell, referral angles). These are signals, not deals.",
+      "sources": [
+        {
+          "table": "revenue_opportunities",
+          "reach": "via_contact_or_company",
+          "columns": 18
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "intelligence_items",
+      "description": "Intelligence items surfaced about people and companies.",
+      "sources": [
+        {
+          "table": "intelligence_items",
+          "reach": "via_contact_or_company",
+          "columns": 22
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "engagement_scores",
+      "description": "Two-way engagement scores per person; the inputs to the warmth tier.",
+      "sources": [
+        {
+          "table": "engagement_scores",
+          "reach": "workspace_id",
+          "columns": 19
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "ideal_client_profiles",
+      "description": "Ideal client profiles.",
+      "sources": [
+        {
+          "table": "ideal_client_profiles",
+          "reach": "workspace_id",
+          "columns": 41
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "services",
+      "description": "The services the firm sells.",
+      "sources": [
+        {
+          "table": "services",
+          "reach": "workspace_id",
+          "columns": 29
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proof_points",
+      "description": "Proof points and evidence the firm uses.",
+      "sources": [
+        {
+          "table": "proof_points",
+          "reach": "workspace_id",
+          "columns": 22
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "gtm_problems",
+      "description": "The customer problems the firm solves.",
+      "sources": [
+        {
+          "table": "gtm_problems",
+          "reach": "workspace_id",
+          "columns": 19
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "competitors",
+      "description": "Competitors and how the firm wins against them.",
+      "sources": [
+        {
+          "table": "competitors",
+          "reach": "workspace_id",
+          "columns": 30
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "manifestos",
+      "description": "Positioning manifestos.",
+      "sources": [
+        {
+          "table": "manifestos",
+          "reach": "workspace_id",
+          "columns": 17
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "custom_fields",
+      "description": "Custom field definitions.",
+      "sources": [
+        {
+          "table": "custom_fields",
+          "reach": "workspace_id",
+          "columns": 12
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "custom_field_values",
+      "description": "Custom field values per record.",
+      "sources": [
+        {
+          "table": "custom_field_values",
+          "reach": "workspace_id",
+          "columns": 6
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "lead_source_options",
+      "description": "The workspace lead-source list.",
+      "sources": [
+        {
+          "table": "lead_source_options",
+          "reach": "workspace_id",
+          "columns": 5
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "relationship_memory",
+      "description": "The synthesised relationship memory per person: history, facts, what not to assume.",
+      "sources": [
+        {
+          "table": "contact_ai_profiles",
+          "reach": "via_contact",
+          "columns": 24
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "account_memory",
+      "description": "The synthesised account memory per company.",
+      "sources": [
+        {
+          "table": "company_ai_profiles",
+          "reach": "via_company",
+          "columns": 16
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "account"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "agent_memories",
+      "description": "Durable memories Nynch agents kept about people, workflows and preferences.",
+      "sources": [
+        {
+          "table": "agent_memories",
+          "reach": "workspace_id",
+          "columns": 18
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "knowledge_entities",
+      "description": "Knowledge-graph entities for people, companies and deals.",
+      "sources": [
+        {
+          "table": "kg_entities",
+          "reach": "via_kg_source",
+          "columns": 7
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "known_facts",
+      "description": "Known facts: relationships between people, companies and deals with their evidence.",
+      "sources": [
+        {
+          "table": "kg_relationships",
+          "reach": "via_kg_entity",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "relationship"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "beliefs",
+      "description": "Buyer beliefs the firm has catalogued.",
+      "sources": [
+        {
+          "table": "canonical_beliefs",
+          "reach": "workspace_id",
+          "columns": 14
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "belief_observations",
+      "description": "Each time a belief was observed in a conversation.",
+      "sources": [
+        {
+          "table": "belief_observations",
+          "reach": "workspace_id",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "learning"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "deal_learnings",
+      "description": "Patterns learned from won and lost deals.",
+      "sources": [
+        {
+          "table": "deal_learnings",
+          "reach": "workspace_id",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "learning"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proposal_learnings",
+      "description": "Patterns learned from proposals.",
+      "sources": [
+        {
+          "table": "proposal_learnings",
+          "reach": "workspace_id",
+          "columns": 14
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [
+        "learning"
+      ],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "decisions",
+      "description": "Decisions recorded with their reasoning.",
+      "sources": [
+        {
+          "table": "decisions",
+          "reach": "workspace_id",
+          "columns": 22
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "introduction_requests",
+      "description": "Warm introduction requests and their outcomes.",
+      "sources": [
+        {
+          "table": "introduction_requests",
+          "reach": "workspace_id",
+          "columns": 23
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "team_intro_requests",
+      "description": "Introduction asks between teammates.",
+      "sources": [
+        {
+          "table": "team_intro_requests",
+          "reach": "workspace_id",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "relationship_paths",
+      "description": "Warm paths to target people through connectors.",
+      "sources": [
+        {
+          "table": "relationship_paths",
+          "reach": "workspace_id",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "circles",
+      "description": "Circles of leverage around a target.",
+      "sources": [
+        {
+          "table": "circles_of_leverage",
+          "reach": "workspace_id",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "circle_members",
+      "description": "Members of each circle.",
+      "sources": [
+        {
+          "table": "circle_members",
+          "reach": "via_circle",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proposals",
+      "description": "Proposals with their full content (also written to proposals/).",
+      "sources": [
+        {
+          "table": "proposals",
+          "reach": "workspace_id",
+          "columns": 24
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proposal_versions",
+      "description": "Every proposal version as a frozen document.",
+      "sources": [
+        {
+          "table": "proposal_versions",
+          "reach": "workspace_id",
+          "columns": 11
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proposal_options",
+      "description": "Priced options inside proposals.",
+      "sources": [
+        {
+          "table": "proposal_options",
+          "reach": "via_proposal",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "proposal_artifacts",
+      "description": "Where each proposal was exported to (links to the generated documents).",
+      "sources": [
+        {
+          "table": "proposal_export_artifacts",
+          "reach": "workspace_id",
+          "columns": 10
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "agreements",
+      "description": "Commercial agreements per account.",
+      "sources": [
+        {
+          "table": "commercial_agreements",
+          "reach": "workspace_id",
+          "columns": 8
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "agreement_versions",
+      "description": "Accepted versions of each agreement with frozen terms.",
+      "sources": [
+        {
+          "table": "commercial_agreement_versions",
+          "reach": "workspace_id",
+          "columns": 21
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "agreement_lines",
+      "description": "Service lines inside accepted agreement versions.",
+      "sources": [
+        {
+          "table": "commercial_agreement_lines",
+          "reach": "workspace_id",
+          "columns": 26
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "projects",
+      "description": "Delivery projects per account.",
+      "sources": [
+        {
+          "table": "client_projects",
+          "reach": "workspace_id",
+          "columns": 17
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "campaigns",
+      "description": "Outreach campaigns and their steps.",
+      "sources": [
+        {
+          "table": "campaigns",
+          "reach": "workspace_id",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "campaign_enrollments",
+      "description": "Who was enrolled in which campaign and what happened.",
+      "sources": [
+        {
+          "table": "campaign_enrollments",
+          "reach": "via_contact",
+          "columns": 15
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": true,
+      "reach_flagged": false
+    },
+    {
+      "dataset": "company_briefs",
+      "description": "Company briefs written for prospects.",
+      "sources": [
+        {
+          "table": "company_briefs",
+          "reach": "workspace_id",
+          "columns": 13
+        }
+      ],
+      "formats": [
+        "csv",
+        "jsonl"
+      ],
+      "memory_files": [],
+      "importable": false,
+      "reach_flagged": false
+    }
+  ],
+  "dataset_count": 74,
+  "exclusions": [
+    {
+      "reason": "AI internals: Agent capability registry. System configuration, not user data.",
+      "tables": [
+        "agent_registry"
+      ]
+    },
+    {
+      "reason": "AI internals: Agent handoff queue state. Operational.",
+      "tables": [
+        "agent_handoffs"
+      ]
+    },
+    {
+      "reason": "AI internals: Agent runtime, queue, checkpoint, schedule, and execution state.",
+      "tables": [
+        "agent_*"
+      ]
+    },
+    {
+      "reason": "AI internals: Agent scratch context store. Durable knowledge lives in agent_memories.",
+      "tables": [
+        "agent_context_store"
+      ]
+    },
+    {
+      "reason": "AI internals: AI feedback telemetry",
+      "tables": [
+        "ai_recommendation_tracking"
+      ]
+    },
+    {
+      "reason": "AI internals: AI response cache",
+      "tables": [
+        "ai_cache"
+      ]
+    },
+    {
+      "reason": "AI internals: AI runtime, cache, evaluation, budget, and provider internals.",
+      "tables": [
+        "ai_*"
+      ]
+    },
+    {
+      "reason": "AI internals: AI-drafted account version of a pitch deck awaiting human approval, same class as value_audit_outreach_drafts. Letting the model read its own unapproved deck copy back would turn generated claims about a buyer into recorded fact; what the account actually said stays canonical in meeting_transcripts, deal_stakeholders and the Deal research dossier.",
+      "tables": [
+        "deal_pitch_renders"
+      ]
+    },
+    {
+      "reason": "AI internals: AI-drafted outreach awaiting human approval, same class as company_briefs. Unapproved drafts must not feed AI context or search, or the model would read its own unsent output back as fact; the underlying relationship facts stay canonical in contacts, companies, and company_signals, and a sent message becomes canonical in sent_emails.",
+      "tables": [
+        "value_audit_outreach_drafts"
+      ]
+    },
+    {
+      "reason": "AI internals: AI-generated commercial offer hypotheses awaiting human judgement. Blocked until output quality is proven; an offer the user promotes becomes canonical in services.",
+      "tables": [
+        "offer_opportunities"
+      ]
+    },
+    {
+      "reason": "AI internals: Append-only Today ranking exposure and outcome events for model evaluation. The Today queue records remain the customer-facing state.",
+      "tables": [
+        "today_rank_events"
+      ]
+    },
+    {
+      "reason": "AI internals: Bucket recommendation queue state. Accepted outcomes live on contact_buckets.",
+      "tables": [
+        "bucket_recommendations"
+      ]
+    },
+    {
+      "reason": "AI internals: Deal-intelligence calibration and model internals.",
+      "tables": [
+        "dii_*"
+      ]
+    },
+    {
+      "reason": "AI internals: Deal-intelligence resonance work queue. Operational.",
+      "tables": [
+        "dii_resonance_queue"
+      ]
+    },
+    {
+      "reason": "AI internals: Dedupe similarity scores, not user-authored relationship context.",
+      "tables": [
+        "contact_similarities"
+      ]
+    },
+    {
+      "reason": "AI internals: Derived per-offer contact suggestions. The canonical relationship record is the contact itself; these rankings are regenerable AI output.",
+      "tables": [
+        "offer_shortlist_members"
+      ]
+    },
+    {
+      "reason": "AI internals: Derived stage-baseline priors and counts. They are calculation internals, not customer-authored Deal context; customer-facing reads use the governed projection.",
+      "tables": [
+        "deal_outlook_priors"
+      ]
+    },
+    {
+      "reason": "AI internals: DII stage medians. Model internals.",
+      "tables": [
+        "dii_user_stage_medians"
+      ]
+    },
+    {
+      "reason": "AI internals: DII statistical priors. Model internals, not user content.",
+      "tables": [
+        "dii_user_priors"
+      ]
+    },
+    {
+      "reason": "AI internals: Durable Account Research retry/resume state. User-facing reports are stored in ai_cache and surfaced through the reasoning-agent, not indexed as relationship context.",
+      "tables": [
+        "account_research_jobs"
+      ]
+    },
+    {
+      "reason": "AI internals: Durable analyze-intelligence work queue. User-facing intelligence is stored in intelligence_items and opportunity_signals, not indexed from this operational queue.",
+      "tables": [
+        "intelligence_analysis_queue"
+      ]
+    },
+    {
+      "reason": "AI internals: Durable retry state for automatic closed-Deal ICP learning. The resulting evidence lives in icp_learning_events.",
+      "tables": [
+        "icp_closed_deal_learning_queue"
+      ]
+    },
+    {
+      "reason": "AI internals: Evaluation data",
+      "tables": [
+        "ai_golden_sets"
+      ]
+    },
+    {
+      "reason": "AI internals: Evaluation tables",
+      "tables": [
+        "ai_evaluation_*"
+      ]
+    },
+    {
+      "reason": "AI internals: Generated candidate hypotheses awaiting queue admission. Blocking them prevents unreviewed output from reinforcing later AI context.",
+      "tables": [
+        "daily_relationship_candidates"
+      ]
+    },
+    {
+      "reason": "AI internals: Heartbeat calibration telemetry.",
+      "tables": [
+        "heartbeat_effectiveness"
+      ]
+    },
+    {
+      "reason": "AI internals: Heartbeat proactive-scan run history. Outputs surface as ai_alerts/action_items.",
+      "tables": [
+        "proactive_scan_runs"
+      ]
+    },
+    {
+      "reason": "AI internals: Internal ICP refinement work and decision history. The current ideal_client_profiles row is the canonical Assist context, so legacy Golden suggestions and pending AI output must not feed generic intelligence.",
+      "tables": [
+        "icp_learning_events"
+      ]
+    },
+    {
+      "reason": "AI internals: Internal ICP suggestion-application history. Assist reads the current ideal_client_profiles row and canonical closed Deals instead of recycling historical or legacy Golden refinements as intelligence.",
+      "tables": [
+        "icp_refinement_history"
+      ]
+    },
+    {
+      "reason": "AI internals: Legacy Golden Standard pattern retained temporarily for production rollout compatibility. Automatic ICP intelligence now comes from canonical closed Deals.",
+      "tables": [
+        "user_golden_icp"
+      ]
+    },
+    {
+      "reason": "AI internals: Legacy probability history produced by the retired visible scorer. Its event model is not trusted and it cannot be used as generic AI evidence.",
+      "tables": [
+        "deal_probability_history"
+      ]
+    },
+    {
+      "reason": "AI internals: Metrics buffer",
+      "tables": [
+        "ai_metrics_buffer"
+      ]
+    },
+    {
+      "reason": "AI internals: Model prediction telemetry used for calibration. Not user-searchable content.",
+      "tables": [
+        "prediction_log"
+      ]
+    },
+    {
+      "reason": "AI internals: Multi-agent coordination events. Operational observability.",
+      "tables": [
+        "agent_coordination_log"
+      ]
+    },
+    {
+      "reason": "AI internals: One Offer Creator generation run: input snapshot, status, and AI cost metadata. Operational run history; the resulting offers live in offer_opportunities.",
+      "tables": [
+        "offer_ranking_runs"
+      ]
+    },
+    {
+      "reason": "AI internals: Per-call AI cost ledger (our cost, billing-internal)",
+      "tables": [
+        "ai_call_costs"
+      ]
+    },
+    {
+      "reason": "AI internals: Per-call data-provider cost ledger",
+      "tables": [
+        "data_provider_calls"
+      ]
+    },
+    {
+      "reason": "AI internals: Playbook scan run snapshots. Suggestions surface via ai_playbook_suggestions.",
+      "tables": [
+        "playbook_scan_snapshots"
+      ]
+    },
+    {
+      "reason": "AI internals: Probability calibration ledger containing shadow candidate observations and resolved outcomes. It remains evaluation-only until a model promotion contract explicitly approves a user-visible projection.",
+      "tables": [
+        "deal_prediction_outcomes"
+      ]
+    },
+    {
+      "reason": "AI internals: Prompt templates",
+      "tables": [
+        "ai_prompts"
+      ]
+    },
+    {
+      "reason": "AI internals: Prospect planning chat and an unexecuted research plan. It holds what the user asked for and what the assistant suggested, not verified facts about any person or company, so reading it back would present planning guesses as relationship context.",
+      "tables": [
+        "prospect_conversations"
+      ]
+    },
+    {
+      "reason": "AI internals: Provider enrichment cache; accepted fields live on contacts and companies.",
+      "tables": [
+        "enrichment_cache"
+      ]
+    },
+    {
+      "reason": "AI internals: Quality metrics",
+      "tables": [
+        "ai_quality_metrics"
+      ]
+    },
+    {
+      "reason": "AI internals: Signal identity-verification audit ledger; customer reads use current_company_signals.",
+      "tables": [
+        "company_signal_trust_assessments"
+      ]
+    },
+    {
+      "reason": "AI internals: Standard Derived Signal model output and diagnostics. Only explicit approved projections may become product context; raw envelopes never become generic AI evidence.",
+      "tables": [
+        "derived_signal_snapshots"
+      ]
+    },
+    {
+      "reason": "AI internals: Statistical model-evaluation reports and shadow operational health. These internals cannot become customer relationship evidence or generic AI context.",
+      "tables": [
+        "derived_signal_validation_runs"
+      ]
+    },
+    {
+      "reason": "AI internals: Temporary service-suggestion cache. Accepted services live in service_bundles, services, and service_tiers.",
+      "tables": [
+        "service_suggestions_cache"
+      ]
+    },
+    {
+      "reason": "AI internals: Theme extraction cache keyed by question hash. Derived cache, not source content.",
+      "tables": [
+        "theme_extraction_cache"
+      ]
+    },
+    {
+      "reason": "AI internals: Usage tracking",
+      "tables": [
+        "ai_usage"
+      ]
+    },
+    {
+      "reason": "AI internals: User evaluation of a derived interpretation. It must not be recycled as source evidence or generic AI context.",
+      "tables": [
+        "derived_signal_feedback"
+      ]
+    },
+    {
+      "reason": "AI internals: Vendor unit prices",
+      "tables": [
+        "data_provider_unit_costs"
+      ]
+    },
+    {
+      "reason": "AI internals: Workspace usage-credit ledger, prices and background job state",
+      "tables": [
+        "usage_credit_*"
+      ]
+    },
+    {
+      "reason": "Assist and agent conversations and run state; the memories they produced are exported as agent_memories.",
+      "tables": [
+        "account_agent_assignments",
+        "agent_activity_log",
+        "agent_project_outputs",
+        "agent_projects",
+        "agent_schedules",
+        "agent_settings",
+        "agent_tasks",
+        "agent_workflow_runs",
+        "assist_conversations",
+        "assist_projects",
+        "assist_reviewed_zenabm_actions",
+        "assist_workpieces",
+        "assistant_actions",
+        "chat_messages",
+        "coaching_commitments",
+        "coaching_sessions",
+        "conversations",
+        "deal_review_commitments",
+        "deal_review_sessions",
+        "notification_events",
+        "notifications"
+      ]
+    },
+    {
+      "reason": "Billing: Billing and Stripe plan configuration.",
+      "tables": [
+        "subscription_plans"
+      ]
+    },
+    {
+      "reason": "Billing: Billing details",
+      "tables": [
+        "subscription_addons"
+      ]
+    },
+    {
+      "reason": "Billing: Billing usage meters",
+      "tables": [
+        "usage_meters"
+      ]
+    },
+    {
+      "reason": "Billing: Credit balance and billing state.",
+      "tables": [
+        "user_credit_wallet"
+      ]
+    },
+    {
+      "reason": "Billing: Credit ledger movements. Billing data, not relationship context.",
+      "tables": [
+        "credit_transactions"
+      ]
+    },
+    {
+      "reason": "Billing: Current Value Audit allowance reservation and consumption state.",
+      "tables": [
+        "audit_usage_operations"
+      ]
+    },
+    {
+      "reason": "Billing: Immutable Value Audit allowance event ledger.",
+      "tables": [
+        "audit_usage_ledger"
+      ]
+    },
+    {
+      "reason": "Billing: Internal credit pricing configuration.",
+      "tables": [
+        "credit_cost_config"
+      ]
+    },
+    {
+      "reason": "Billing: Offer Creator trial/paid entitlement and quota counters. Billing state, not relationship context.",
+      "tables": [
+        "offer_browser_entitlements"
+      ]
+    },
+    {
+      "reason": "Billing: Stripe customer, subscription, and charge data.",
+      "tables": [
+        "stripe_*"
+      ]
+    },
+    {
+      "reason": "Billing: Usage metering events.",
+      "tables": [
+        "usage_events"
+      ]
+    },
+    {
+      "reason": "Billing: User billing",
+      "tables": [
+        "user_addons"
+      ]
+    },
+    {
+      "reason": "Billing: Workspace usage metering.",
+      "tables": [
+        "workspace_usage"
+      ]
+    },
+    {
+      "reason": "Buyer-facing rooms and partner-network records shared with other accounts; the proposal and deal behind them are exported.",
+      "tables": [
+        "deal_room_items",
+        "deal_room_members",
+        "deal_room_sections",
+        "deal_rooms",
+        "esignature_documents",
+        "network_partner_invitations",
+        "network_partners",
+        "partner_exchange_deal_link_events",
+        "partner_exchange_deal_links",
+        "partner_exchanges",
+        "partner_profiles",
+        "proposal_edit_feedback",
+        "proposal_option_services",
+        "proposal_refinement_messages"
+      ]
+    },
+    {
+      "reason": "Client-foundation ledgers (billing periods, movements, handover and close events); the agreements, versions, lines and projects they roll up are exported.",
+      "tables": [
+        "client_close_events",
+        "client_deal_services",
+        "client_handover_run_events",
+        "client_handover_run_steps",
+        "client_handover_runs",
+        "client_project_health_checkpoints",
+        "client_project_lifecycle_events",
+        "commercial_agreement_lineages",
+        "commercial_agreement_rebase_requirements",
+        "commercial_billing_schedule_periods",
+        "commercial_external_finance_mappings",
+        "commercial_line_movements",
+        "commercial_project_allocations"
+      ]
+    },
+    {
+      "reason": "Configuration: API keys and OAuth tokens",
+      "tables": [
+        "integration_config"
+      ]
+    },
+    {
+      "reason": "Configuration: Chrome extension feature configuration.",
+      "tables": [
+        "extension_config"
+      ]
+    },
+    {
+      "reason": "Configuration: Client-authored marketing framework slides. Content the client writes for their own audience, not relationship context.",
+      "tables": [
+        "framework_wheels"
+      ]
+    },
+    {
+      "reason": "Configuration: Coach-curated skill templates copied into company_skills at signup. Service-role only, not relationship data.",
+      "tables": [
+        "partner_skill_templates"
+      ]
+    },
+    {
+      "reason": "Configuration: Coach/affiliate partner records (service-role only) used by stripe-webhook to seed content into attributed workspaces. Not relationship data.",
+      "tables": [
+        "partners"
+      ]
+    },
+    {
+      "reason": "Configuration: Company-level GTM value drivers (pain relievers and gain creators). Workspace strategy configuration, not relationship contact data.",
+      "tables": [
+        "gtm_value_drivers"
+      ]
+    },
+    {
+      "reason": "Configuration: Connected-app OAuth client grants. Security configuration.",
+      "tables": [
+        "mcp_oauth_client_grants"
+      ]
+    },
+    {
+      "reason": "Configuration: Connected-app OAuth metadata and encrypted tokens",
+      "tables": [
+        "mcp_user_connections"
+      ]
+    },
+    {
+      "reason": "Configuration: Core record source registry used for database validation and UI labels. Product metadata, not relationship context.",
+      "tables": [
+        "record_source_types"
+      ]
+    },
+    {
+      "reason": "Configuration: Custom-domain setup state for the public AI assistant; not relationship data.",
+      "tables": [
+        "workspace_assistant_domains"
+      ]
+    },
+    {
+      "reason": "Configuration: Derived signal-weight configuration. Canonical feedback and deal outcomes remain the auditable learning evidence.",
+      "tables": [
+        "focus_signal_learning_weights"
+      ]
+    },
+    {
+      "reason": "Configuration: Derived soft-ranking weights for Daily Relationship Queue strategies. Canonical assignment events hold the auditable first-party outcomes.",
+      "tables": [
+        "daily_relationship_generator_learning"
+      ]
+    },
+    {
+      "reason": "Configuration: Global workshop admission, closing-time and open-state configuration is outside CRM tenant scope; never relationship context.",
+      "tables": [
+        "workshop_campaign"
+      ]
+    },
+    {
+      "reason": "Configuration: Historical private presentation and webinar content; not relationship context.",
+      "tables": [
+        "pov_asset_variant_revisions"
+      ]
+    },
+    {
+      "reason": "Configuration: Historical private profile facts and sales scripts; not relationship context.",
+      "tables": [
+        "launch_kit_sales_revisions"
+      ]
+    },
+    {
+      "reason": "Configuration: Internal feature flags",
+      "tables": [
+        "feature_flags"
+      ]
+    },
+    {
+      "reason": "Configuration: Internal onboarding state",
+      "tables": [
+        "onboarding_progress"
+      ]
+    },
+    {
+      "reason": "Configuration: Internal transactional email templates.",
+      "tables": [
+        "system_email_templates"
+      ]
+    },
+    {
+      "reason": "Configuration: Junction table linking services to their selected value drivers. Derived from services and gtm_value_drivers config; not relationship data.",
+      "tables": [
+        "service_value_driver_links"
+      ]
+    },
+    {
+      "reason": "Configuration: Per-user list of people hidden from the post-commenter panel; a display preference, not relationship context.",
+      "tables": [
+        "post_commenter_exclusions"
+      ]
+    },
+    {
+      "reason": "Configuration: Per-workspace branding + alert thresholds + lead owner routing for the public AI assistant.",
+      "tables": [
+        "workspace_assistant_configs"
+      ]
+    },
+    {
+      "reason": "Configuration: Per-workspace slide styling (colours, font, logo). Configuration, not relationship context.",
+      "tables": [
+        "framework_brand_kits"
+      ]
+    },
+    {
+      "reason": "Configuration: Private newsletter and video drafts with source research; not relationship context.",
+      "tables": [
+        "launch_kit_longform"
+      ]
+    },
+    {
+      "reason": "Configuration: Private presentation and webinar drafts and generation context; not relationship context.",
+      "tables": [
+        "pov_asset_variants"
+      ]
+    },
+    {
+      "reason": "Configuration: Private profile facts and sales scripts; not relationship context.",
+      "tables": [
+        "launch_kit_sales_assets"
+      ]
+    },
+    {
+      "reason": "Configuration: Private publishing destination configuration.",
+      "tables": [
+        "launch_kit_publishing_settings"
+      ]
+    },
+    {
+      "reason": "Configuration: Private strategy writing, generation state and revision history; not relationship context.",
+      "tables": [
+        "launch_kit_sprints"
+      ]
+    },
+    {
+      "reason": "Configuration: Private UI layout configuration.",
+      "tables": [
+        "command_centre_layout"
+      ]
+    },
+    {
+      "reason": "Configuration: Service-only limits and scheduling controls for Daily Relationship Queue generation; configuration, not relationship context.",
+      "tables": [
+        "daily_relationship_generator_config"
+      ]
+    },
+    {
+      "reason": "Configuration: Service-only reversible briefing preference snapshots. Backup configuration, not relationship context.",
+      "tables": [
+        "briefing_test_preference_snapshots"
+      ]
+    },
+    {
+      "reason": "Configuration: Service-only temporary briefing test controls. Operational configuration, not relationship context.",
+      "tables": [
+        "briefing_test_controls"
+      ]
+    },
+    {
+      "reason": "Configuration: Short-lived OAuth verifier state",
+      "tables": [
+        "mcp_oauth_state"
+      ]
+    },
+    {
+      "reason": "Configuration: System rule catalog. Installed and customized rules live in user_rules.",
+      "tables": [
+        "rule_templates"
+      ]
+    },
+    {
+      "reason": "Configuration: System skill catalog. Installed skills live in user_skills and company_skills.",
+      "tables": [
+        "skill_library"
+      ]
+    },
+    {
+      "reason": "Configuration: System skill templates. Installed skills live in user_skills and company_skills.",
+      "tables": [
+        "skill_templates"
+      ]
+    },
+    {
+      "reason": "Configuration: Temporary workspace capability switch for the pre-launch Value Audit pilot. It grants access only and contains no relationship context.",
+      "tables": [
+        "value_audit_preview_workspaces"
+      ]
+    },
+    {
+      "reason": "Configuration: The consultant's own published writing. Read through the dedicated voice-context loader for drafting prompts, never generic AI context.",
+      "tables": [
+        "workspace_content_items"
+      ]
+    },
+    {
+      "reason": "Configuration: The workspace's own core problem statement. Read through the Strategy loader for generation prompts; the same statement stays on the profile for Assist.",
+      "tables": [
+        "workspace_strategy_profiles"
+      ]
+    },
+    {
+      "reason": "Configuration: User-installed Preferences and Playbooks use dedicated scope-aware loaders and explicit consultation. Never expose them through generic context, search, or RAG.",
+      "tables": [
+        "user_skills"
+      ]
+    },
+    {
+      "reason": "Configuration: Workspace Preferences and Playbooks use dedicated scope-aware loaders and explicit consultation. Never expose them through generic context, search, or RAG.",
+      "tables": [
+        "company_skills"
+      ]
+    },
+    {
+      "reason": "Configuration: Workspace typical-vs-opposite strategy drafts. Adopted rows reach Assist only through the dedicated GTM context reader, never generic table dump or RAG.",
+      "tables": [
+        "gtm_market_contrasts"
+      ]
+    },
+    {
+      "reason": "Configuration: Workspace-owned Value Audit generation and rendering configuration. It contains instructions rather than customer or relationship facts and must not enter assistant context.",
+      "tables": [
+        "value_audit_domain_packs"
+      ]
+    },
+    {
+      "reason": "Configuration: Your Content source registry (blog, Substack, own LinkedIn). Configuration, not relationship context.",
+      "tables": [
+        "workspace_content_sources"
+      ]
+    },
+    {
+      "reason": "Derived from deals, which is exported.",
+      "tables": [
+        "client_engagement_states"
+      ]
+    },
+    {
+      "reason": "Derived from proposal_learnings, which is exported.",
+      "tables": [
+        "proposal_learning_plan_usage_attempts"
+      ]
+    },
+    {
+      "reason": "Derived from proposals, which is exported.",
+      "tables": [
+        "proposal_delivery_attempts",
+        "proposal_delivery_receipts",
+        "proposal_export_reconciliation_events",
+        "proposal_generation_operations",
+        "proposal_generation_plan_usage_attempts"
+      ]
+    },
+    {
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020).",
+      "tables": [
+        "knowledge_base_items",
+        "methodologies",
+        "outcome_patterns",
+        "testimonials",
+        "user_case_studies"
+      ]
+    },
+    {
+      "reason": "Import working tables: Import job tracking",
+      "tables": [
+        "csv_import_jobs"
+      ]
+    },
+    {
+      "reason": "Import working tables: Temporary bucket-game/import staging; accepted contacts are canonical.",
+      "tables": [
+        "pending_contacts"
+      ]
+    },
+    {
+      "reason": "Import working tables: Temporary dedupe candidates",
+      "tables": [
+        "csv_import_match_candidates"
+      ]
+    },
+    {
+      "reason": "Import working tables: Temporary import data",
+      "tables": [
+        "csv_import_rows"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Administrative tables",
+      "tables": [
+        "admin_*"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Company revenue ledger — every Nynch Stripe payment classified by SaaS/services split. Super-admin only; company finance data, not user relationship context.",
+      "tables": [
+        "revenue_events"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Customer support issue workflow; admin-facing operational data, not relationship context.",
+      "tables": [
+        "bug_reports"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Daily company-wide KPI snapshot (Nynch Top 20). Internal founder/admin business metrics, not user relationship context.",
+      "tables": [
+        "company_kpi_snapshots"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Internal database-audit findings, not customer relationship context.",
+      "tables": [
+        "audit_results"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Internal product roadmap, not customer relationship data.",
+      "tables": [
+        "roadmap_items"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Private screenshots for customer support issue workflow; admin-facing operational evidence, not relationship context.",
+      "tables": [
+        "bug_report_attachments"
+      ]
+    },
+    {
+      "reason": "Nynch administration: Support content and conversations use the dedicated support/wiki path.",
+      "tables": [
+        "support_*"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Append-only commercial classification and correction history. Reporting may reconstruct it explicitly, but generic AI context must use the canonical Deal motion rather than historical authority records.",
+      "tables": [
+        "deal_commercial_motion_history"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Effective-dated Account owner history. Generic AI context must use the canonical current Account projection, not reconstruct authority from historical rows.",
+      "tables": [
+        "account_owner_assignments"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private approved-proof selection for Audit Playbooks.",
+      "tables": [
+        "audit_playbook_version_proofs"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private Audit Playbook lifecycle configuration.",
+      "tables": [
+        "audit_playbooks"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private consultant method and outreach configuration.",
+      "tables": [
+        "audit_playbook_versions"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private immutable evidence provenance for customer-facing Value Audits.",
+      "tables": [
+        "value_audit_evidence_packs"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private source excerpts, URLs, confidence, freshness, and visibility for Value Audits.",
+      "tables": [
+        "value_audit_evidence_items"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private standing account hypotheses (pains, competitors, buying roles) drafted from audit research. Direction for generation, never assistant context: an unverified hypothesis read back as fact is exactly the fabrication class the registry exists to block.",
+      "tables": [
+        "value_audit_account_plans"
+      ]
+    },
+    {
+      "reason": "Nynch commercial state: Private standing sector research reused across Value Audits; market items enter audits only through the evidence pipeline, never assistant context.",
+      "tables": [
+        "value_audit_sector_briefs"
+      ]
+    },
+    {
+      "reason": "Operational state: Add/Skip decisions feeding the exec monitor trust model. Feature-internal learning state.",
+      "tables": [
+        "exec_suggestion_decisions"
+      ]
+    },
+    {
+      "reason": "Operational state: Ambiguous historical Deal outcome repair queue. It is review workflow state, not customer-authored relationship context.",
+      "tables": [
+        "deal_outcome_repair_queue"
+      ]
+    },
+    {
+      "reason": "Operational state: Append-only Daily Relationship Queue outcome and recipe-learning ledger; never generic AI context or RAG material.",
+      "tables": [
+        "daily_relationship_assignment_events"
+      ]
+    },
+    {
+      "reason": "Operational state: Append-only Deal outcome landmarks for leakage-safe model evaluation. The canonical Deal already supplies customer-facing outcome context.",
+      "tables": [
+        "deal_outcome_events"
+      ]
+    },
+    {
+      "reason": "Operational state: Backend-only merge values for campaign emails from website sign-ups (the calculator); the same result is written as a contact note, which is the copy Assist reads.",
+      "tables": [
+        "contact_signup_results"
+      ]
+    },
+    {
+      "reason": "Operational state: Bulk processing job and item state; user-facing records live in their destination sources.",
+      "tables": [
+        "bulk_job*"
+      ]
+    },
+    {
+      "reason": "Operational state: Calculated product reliability scoreboard snapshots for super-admin owners. They contain operational evidence only, never relationship context.",
+      "tables": [
+        "feature_reality_status_snapshots"
+      ]
+    },
+    {
+      "reason": "Operational state: Campaign jobs-page watch state. User-visible journey state remains canonical on campaign_enrollments, pending_campaign_actions, and the drafted email.",
+      "tables": [
+        "campaign_job_watches"
+      ]
+    },
+    {
+      "reason": "Operational state: Candidates held back pending a past-roles retry. Detected people surface as new_exec_suggestions once resolved.",
+      "tables": [
+        "exec_monitor_held_candidates"
+      ]
+    },
+    {
+      "reason": "Operational state: Champion job-change watch state: user champion marks and last-checked times. The findings live on contact_job_changes and the alerts on ai_alerts.",
+      "tables": [
+        "champion_watch"
+      ]
+    },
+    {
+      "reason": "Operational state: Coalescing flags and Gmail catch-up cursors for push-triggered syncs.",
+      "tables": [
+        "sync_push_triggers"
+      ]
+    },
+    {
+      "reason": "Operational state: Contact merge audit trail; the surviving contact is canonical.",
+      "tables": [
+        "contact_merges"
+      ]
+    },
+    {
+      "reason": "Operational state: Content-workspace run health and counters; source ideas and drafts are indexed separately.",
+      "tables": [
+        "content_analysis_status"
+      ]
+    },
+    {
+      "reason": "Operational state: Customer-owned Resend provider event receipts and webhook ingestion ledger. Campaign delivery outcomes are canonical on campaign_email_delivery_claims.",
+      "tables": [
+        "resend_campaign_event_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Customer-visible website-scan progress receipt. It records process state only; safe website signals remain on the company and public cache contracts.",
+      "tables": [
+        "company_website_scan_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Daily Relationship Queue generation state. The user-facing people and relationship evidence remain on canonical Contact and Company records.",
+      "tables": [
+        "daily_relationship_days"
+      ]
+    },
+    {
+      "reason": "Operational state: Database query performance telemetry.",
+      "tables": [
+        "query_performance_log"
+      ]
+    },
+    {
+      "reason": "Operational state: Delivery receipts for the 30-minute meeting brief (claimed, delivered, skipped). The brief content lives on meeting_prep_docs and notifications.",
+      "tables": [
+        "meeting_brief_deliveries"
+      ]
+    },
+    {
+      "reason": "Operational state: Derived contact meeting-count repair cursors are not relationship evidence.",
+      "tables": [
+        "contact_meeting_rollup_checkpoints"
+      ]
+    },
+    {
+      "reason": "Operational state: Derived daily ranking and workflow state. Canonical Contact, Company, signal, and action records remain the relationship truth.",
+      "tables": [
+        "daily_relationship_assignments"
+      ]
+    },
+    {
+      "reason": "Operational state: Derived prospecting signal response weights; canonical outreach and reply evidence remains on queue and interaction records.",
+      "tables": [
+        "prospecting_signal_response_weights"
+      ]
+    },
+    {
+      "reason": "Operational state: Email enrichment execution log; accepted data lives on contacts.",
+      "tables": [
+        "email_enrichment_log"
+      ]
+    },
+    {
+      "reason": "Operational state: Email generation execution log; sent/draft content has canonical sources.",
+      "tables": [
+        "email_generation_log"
+      ]
+    },
+    {
+      "reason": "Operational state: Email send execution state; messages and sent emails are canonical.",
+      "tables": [
+        "email_sends"
+      ]
+    },
+    {
+      "reason": "Operational state: End-of-day synthesis execution logs.",
+      "tables": [
+        "eod_synthesis_logs"
+      ]
+    },
+    {
+      "reason": "Operational state: Enrichment work queue and retry state.",
+      "tables": [
+        "enrichment_jobs"
+      ]
+    },
+    {
+      "reason": "Operational state: Firmographic queue control, job receipts, and health ledgers. Accepted customer-facing fields and provenance are stored on companies.",
+      "tables": [
+        "company_enrichment_*"
+      ]
+    },
+    {
+      "reason": "Operational state: Frozen ranking snapshots derived from canonical company, signal, relationship, and activity records; avoid duplicating that evidence in AI context.",
+      "tables": [
+        "focus_company_members"
+      ]
+    },
+    {
+      "reason": "Operational state: Granular campaign delivery and tracking telemetry; campaign outcomes are canonical.",
+      "tables": [
+        "campaign_email_*"
+      ]
+    },
+    {
+      "reason": "Operational state: Grok Bot campaign assignment queue. User-visible journey state remains canonical on campaign_enrollments, pending_campaign_actions, and contact notes.",
+      "tables": [
+        "campaign_agent_jobs"
+      ]
+    },
+    {
+      "reason": "Operational state: Historical employer-link remediation queue and audit status. Verified relationship truth remains on contacts and companies.",
+      "tables": [
+        "contact_company_review_queue"
+      ]
+    },
+    {
+      "reason": "Operational state: How each target-market tier was built (filters, estimated size, confidence). The tiered companies themselves are canonical company records.",
+      "tables": [
+        "market_definitions"
+      ]
+    },
+    {
+      "reason": "Operational state: Immutable engagement correction audit; read only through bounded parent-authorised lifecycle history.",
+      "tables": [
+        "client_engagement_events"
+      ]
+    },
+    {
+      "reason": "Operational state: Import progress state; safe connection status is exposed through the connected-integration context wrapper.",
+      "tables": [
+        "integration_import_progress"
+      ]
+    },
+    {
+      "reason": "Operational state: Internal identity-resolution conflict evidence; canonical user context remains on contacts.",
+      "tables": [
+        "contact_identity_conflicts"
+      ]
+    },
+    {
+      "reason": "Operational state: Internal progress ledger for the bounded company identity shadow scan; never relationship context.",
+      "tables": [
+        "company_identity_observation_scan_state"
+      ]
+    },
+    {
+      "reason": "Operational state: Internal reversible identity-link ledger; canonical user context remains on contacts.",
+      "tables": [
+        "contact_identity_links"
+      ]
+    },
+    {
+      "reason": "Operational state: Internal shadow identity evidence and reviewer labels; canonical user context remains on companies.",
+      "tables": [
+        "company_identity_observations"
+      ]
+    },
+    {
+      "reason": "Operational state: Last contact-duplicate scan receipt per workspace for honest empty states; accepted people remain on contacts.",
+      "tables": [
+        "workspace_dedupe_scan_state"
+      ]
+    },
+    {
+      "reason": "Operational state: Learned skip patterns a user undid for the exec monitor. Feature-internal learning state.",
+      "tables": [
+        "exec_skip_pattern_overrides"
+      ]
+    },
+    {
+      "reason": "Operational state: Lease and retry state for governed derived-signal calculation. It contains process health, not customer relationship knowledge.",
+      "tables": [
+        "derived_signal_recalc_queue"
+      ]
+    },
+    {
+      "reason": "Operational state: Merge audit events; the surviving contact is canonical.",
+      "tables": [
+        "contact_merge_events"
+      ]
+    },
+    {
+      "reason": "Operational state: Merge audit trail; the surviving company is canonical.",
+      "tables": [
+        "company_merges"
+      ]
+    },
+    {
+      "reason": "Operational state: Multi-key identity graph (LinkedIn vanity/opaque/conversation, email, phone, name) for match/orphan attach; canonical person context remains on contacts.",
+      "tables": [
+        "contact_identity_keys"
+      ]
+    },
+    {
+      "reason": "Operational state: Offline release-gate receipts for Today readiness; operational validation metadata.",
+      "tables": [
+        "daily_relationship_readiness_validation_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: One-off website pre-qualification runs over market candidates. Not monitoring; the resulting companies are canonical records.",
+      "tables": [
+        "market_web_check_runs"
+      ]
+    },
+    {
+      "reason": "Operational state: Operational no-resend delivery and history-reconciliation ledger. Canonical sent content is stored in sent_emails.",
+      "tables": [
+        "outbound_email_send_attempts"
+      ]
+    },
+    {
+      "reason": "Operational state: Pending new-executive suggestions for the exec monitor. Surfaced through its own alert card, not Assist, until the feature is proven.",
+      "tables": [
+        "new_exec_suggestions"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-candidate website check outcome and a short quote, kept for the add step. Canonical company records carry the durable context.",
+      "tables": [
+        "market_web_check_results"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-contact relationship-memory refresh queue and rewrite timestamps. The memory itself lives on contact_ai_profiles.",
+      "tables": [
+        "relationship_memory_refresh_state"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-contact scan receipts proving the fan-out ran. Detected signals live in contact_signals and ai_alerts.",
+      "tables": [
+        "signal_scan_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-mailbox receive bookkeeping (workspace, last sync, last error) for secondary mailboxes.",
+      "tables": [
+        "email_account_sync_state"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-mailbox sync lease so push, drain and hourly poll never overlap.",
+      "tables": [
+        "mail_sync_leases"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-run progress and spend tracking for the weekly new-exec detector. Operational, never relationship context.",
+      "tables": [
+        "exec_monitor_progress"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-user approval rate for the exec monitor trust model. Feature-internal state.",
+      "tables": [
+        "exec_monitor_trust"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-user generation status and credit accounting. Materialised queue records hold the user-facing result.",
+      "tables": [
+        "daily_relationship_generator_runs"
+      ]
+    },
+    {
+      "reason": "Operational state: Per-workspace watch allowance settings (per-person cap, private-watch toggle). Configuration, not relationship context.",
+      "tables": [
+        "workspace_watch_settings"
+      ]
+    },
+    {
+      "reason": "Operational state: Point-in-time Focus market readiness diagnostics. Canonical companies, signals, and ICP/service records remain the source of market truth.",
+      "tables": [
+        "focus_market_snapshots"
+      ]
+    },
+    {
+      "reason": "Operational state: Principal-independent private Storage deletion receipts for removed Audit introduction videos. Cleanup state must never become generic AI context.",
+      "tables": [
+        "value_audit_video_cleanup_tombstones"
+      ]
+    },
+    {
+      "reason": "Operational state: Privacy-safe intent, provider-attempt, quality, and cost receipts for email resolution. Accepted addresses live on Contacts; these ledgers are operational evidence, not AI context.",
+      "tables": [
+        "email_resolution_*"
+      ]
+    },
+    {
+      "reason": "Operational state: Private actor-owned email and meeting attribution receipts. Human attachments are not generic Assist or retrieval evidence; source access remains scoped to the attaching person and workspace.",
+      "tables": [
+        "deal_communication_links"
+      ]
+    },
+    {
+      "reason": "Operational state: Private actor-scoped relationship snapshots; read only through the permissioned history RPC",
+      "tables": [
+        "contact_member_histories"
+      ]
+    },
+    {
+      "reason": "Operational state: Private audience snapshots and resumable import progress; canonical journeys are campaign enrollments.",
+      "tables": [
+        "campaign_audience_imports"
+      ]
+    },
+    {
+      "reason": "Operational state: Private durable Value Audit queue, lease, retry, and quality receipts.",
+      "tables": [
+        "value_audit_jobs"
+      ]
+    },
+    {
+      "reason": "Operational state: Private engagement idempotency payload and exact replay receipts; never generic AI context.",
+      "tables": [
+        "client_engagement_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Private historical market reset recovery snapshots; never relationship context.",
+      "tables": [
+        "focus_reset_20261009"
+      ]
+    },
+    {
+      "reason": "Operational state: Private history discovery cursors; operational progress, not generic CRM evidence.",
+      "tables": [
+        "relationship_memory_discovery"
+      ]
+    },
+    {
+      "reason": "Operational state: Private per-alert selection and planned-action state. The customer-facing company alert carries the evidence and roster; this table must not become generic AI context.",
+      "tables": [
+        "company_alert_contact_actions"
+      ]
+    },
+    {
+      "reason": "Operational state: Private publication and draft delivery receipts; canonical activity is exposed by Today.",
+      "tables": [
+        "launch_kit_asset_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Private reviewed repair audit and authorization state; never generic relationship context or retrieval evidence.",
+      "tables": [
+        "deal_activity_repair_receipts",
+        "historical_pipeline_repair_items",
+        "historical_pipeline_repair_plans",
+        "legacy_commercial_repair_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Private source-backed continuity excerpts; read only through the actor-authorised evidence RPC.",
+      "tables": [
+        "relationship_memory_evidence"
+      ]
+    },
+    {
+      "reason": "Operational state: Private target-market before-images and compare-and-set state; never relationship context.",
+      "tables": [
+        "target_market_reset_rows"
+      ]
+    },
+    {
+      "reason": "Operational state: Private target-market confirmation and recovery receipts; never relationship context.",
+      "tables": [
+        "target_market_reset_operations"
+      ]
+    },
+    {
+      "reason": "Operational state: Private transaction-bound recovery context; never relationship context.",
+      "tables": [
+        "target_market_restore_context"
+      ]
+    },
+    {
+      "reason": "Operational state: Private unfinished composer state. The sent message becomes canonical in sent_emails; drafts must not influence AI context or search.",
+      "tables": [
+        "email_drafts"
+      ]
+    },
+    {
+      "reason": "Operational state: Private upload and lifecycle ledger for Audit introduction videos. The approved Audit snapshot carries the public-facing media reference; upload state must never become generic AI context.",
+      "tables": [
+        "value_audit_video_assets"
+      ]
+    },
+    {
+      "reason": "Operational state: Private Value Audit batch receipts, dispositions, and counts.",
+      "tables": [
+        "value_audit_batches"
+      ]
+    },
+    {
+      "reason": "Operational state: Private visitor no-resend ledger; never relationship context.",
+      "tables": [
+        "visitor_email_delivery_intents"
+      ]
+    },
+    {
+      "reason": "Operational state: Provider push subscription ids, expiries and per-subscription client secrets for mail and calendar sync. Never AI context.",
+      "tables": [
+        "sync_push_subscriptions"
+      ]
+    },
+    {
+      "reason": "Operational state: Provider sync cursors and progress only; campaign engagement is read through the bounded Focus Companies workflow, not generic Assist context.",
+      "tables": [
+        "zenabm_engagement_syncs"
+      ]
+    },
+    {
+      "reason": "Operational state: Provider, cost, and stage receipts for Daily Relationship Queue generation; operational evidence, not relationship context.",
+      "tables": [
+        "daily_relationship_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Public authority-scan rate limiting.",
+      "tables": [
+        "authority_scan_rate_limits"
+      ]
+    },
+    {
+      "reason": "Operational state: Public endpoint rate limiting.",
+      "tables": [
+        "public_rate_limits"
+      ]
+    },
+    {
+      "reason": "Operational state: Redacted contact-to-company reliability ledger. It records outcome and refresh state only; never relationship context.",
+      "tables": [
+        "company_link_live_proofs"
+      ]
+    },
+    {
+      "reason": "Operational state: Redacted operator-attended Chrome proof ledger. It records only outcome, extension version, source commit, and time; never relationship context.",
+      "tables": [
+        "extension_supervised_proofs"
+      ]
+    },
+    {
+      "reason": "Operational state: Repair audit trail; canonical company/contact records hold the corrected result.",
+      "tables": [
+        "company_mismatch_audit"
+      ]
+    },
+    {
+      "reason": "Operational state: Retired Academy community forum. Product surface removed; rows retained. Not relationship context.",
+      "tables": [
+        "academy_forum_categories",
+        "academy_forum_comments",
+        "academy_forum_posts",
+        "academy_forum_votes"
+      ]
+    },
+    {
+      "reason": "Operational state: Retired Academy events calendar. Product surface removed; rows retained. Not relationship context.",
+      "tables": [
+        "academy_events"
+      ]
+    },
+    {
+      "reason": "Operational state: Retry queue for deleting unreferenced storage objects after failed uploads. Canonical customer records and their live storage references remain the source of truth.",
+      "tables": [
+        "storage_orphan_cleanup_queue"
+      ]
+    },
+    {
+      "reason": "Operational state: Retryable per-source generation work and provider receipts. Materialised queue records hold the user-facing result.",
+      "tables": [
+        "daily_relationship_generator_jobs"
+      ]
+    },
+    {
+      "reason": "Operational state: Reviewed recovery audit and idempotency state is not relationship context.",
+      "tables": [
+        "deal_customer_recovery_receipts"
+      ]
+    },
+    {
+      "reason": "Operational state: Rotation state for which watched company was last checked. Operational scheduling state, not relationship context.",
+      "tables": [
+        "exec_monitor_company_checks"
+      ]
+    },
+    {
+      "reason": "Operational state: Scheduled-job locks and processor state.",
+      "tables": [
+        "cron_*"
+      ]
+    },
+    {
+      "reason": "Operational state: Sealed Today readiness evaluation evidence and verdicts; operational proof, not generic AI context.",
+      "tables": [
+        "daily_relationship_readiness_evaluations"
+      ]
+    },
+    {
+      "reason": "Operational state: Send ledger for inbound audit emails: recipient, attempts, and failure reason. The audit itself is canonical on company_briefs and the person who asked is canonical on the captured lead; this row only records whether it reached them.",
+      "tables": [
+        "inbound_audit_deliveries"
+      ]
+    },
+    {
+      "reason": "Operational state: Server-owned Fathom delivery and polling checkpoints are operational state; meeting content remains on meeting_transcripts.",
+      "tables": [
+        "fathom_webhook_state"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only archive of duplicate email rows removed by the one-row-per-message cleanup.",
+      "tables": [
+        "email_message_dedupe_archive"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only campaign transfer lineage. User-visible journey state remains canonical on campaign_enrollments.",
+      "tables": [
+        "campaign_enrollment_transfers"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only cursor per activity source for the team re-match backfill: last id, counts and pass timestamps. Holds no customer content; the re-attached activity lives on its own sources.",
+      "tables": [
+        "team_activity_rematch_progress"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only ledger for handing the records of a departed teammate to their successor: planned and moved counts per record kind, the resume step and the ids of rows a guard refused. Operational handover state, not relationship context.",
+      "tables": [
+        "member_offboarding_handover*"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only ledger for the Monday team summary: stored facts, the single AI narrative and a resume lease. Derived from deals, contacts and intro requests, which stay canonical; never relationship context.",
+      "tables": [
+        "team_weekly_summary_runs"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only per-recipient delivery state for the Monday team summary (notification id, email intent). Delivery bookkeeping, not relationship context.",
+      "tables": [
+        "team_weekly_summary_deliveries"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only private calendar delivery identity and recovery receipts are not relationship context.",
+      "tables": [
+        "private_calendar_prep_deliveries"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only record of a disconnected mailbox (owner, provider account, address) so its stored mail can be re-attached when the same user reconnects it.",
+      "tables": [
+        "email_account_tombstones"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only resume cursors for batch scans (kg-sync, ai-data-hygiene); operational state, never relationship context.",
+      "tables": [
+        "system_scan_cursors"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-only run ledger for a supervised workspace tenancy move: table checkpoints, batch counts and the parked identity keys of records being merged. Operational migration state, not relationship context, and the parked columns briefly hold an email or LinkedIn URL that must never become generic AI context.",
+      "tables": [
+        "workspace_tenancy_move_*"
+      ]
+    },
+    {
+      "reason": "Operational state: Service-run queue that removes the mail and calendar data synced from a disconnected mailbox or calendar.",
+      "tables": [
+        "mailbox_data_purges"
+      ]
+    },
+    {
+      "reason": "Operational state: Short-lived enrichment debit reservation and settlement state. Accepted profile data lives on contacts and durable balance movements live in credit_transactions.",
+      "tables": [
+        "contact_enrichment_credit_reservations"
+      ]
+    },
+    {
+      "reason": "Operational state: Short-lived working list for a winnable-market refresh spanning several calls; removed when the refresh finishes. Company records carry the tiers.",
+      "tables": [
+        "market_som_refresh_progress"
+      ]
+    },
+    {
+      "reason": "Operational state: Singleton cap/cursor control for the nightly signal fan-out. Operational, never relationship context.",
+      "tables": [
+        "signal_scan_config"
+      ]
+    },
+    {
+      "reason": "Operational state: Snapshot of statuses changed by the one-time 2026-10-14 meeting insight sweep, kept so the sweep can be reversed; internal migration state, never relationship context.",
+      "tables": [
+        "meeting_insight_sweep_20261014"
+      ]
+    },
+    {
+      "reason": "Operational state: Telegram send/delivery log; conversation history is canonical.",
+      "tables": [
+        "telegram_message_log"
+      ]
+    },
+    {
+      "reason": "Operational state: Temporary dedupe candidates; accepted results live on contacts.",
+      "tables": [
+        "contact_dedupe_candidates"
+      ]
+    },
+    {
+      "reason": "Operational state: Temporary enrichment staging; accepted contact data is canonical.",
+      "tables": [
+        "pending_contact_enrichments"
+      ]
+    },
+    {
+      "reason": "Operational state: Throttle state for refreshing derived prospecting signal response weights; canonical outreach and reply evidence remains on queue and interaction records.",
+      "tables": [
+        "prospecting_signal_response_refresh_state"
+      ]
+    },
+    {
+      "reason": "Operational state: TypeSafe Jev shadow-mode agreement ledger: compares Jev decisions with LLM decisions in background, never affects user-facing outputs. Operational diagnostic evidence only, not relationship context or AI input.",
+      "tables": [
+        "jev_shadow_comparisons"
+      ]
+    },
+    {
+      "reason": "Operational state: UI dismissal state, not relationship knowledge.",
+      "tables": [
+        "flow_dismissals"
+      ]
+    },
+    {
+      "reason": "Operational state: User-visible monthly focus-list workflow state. Canonical company, signal, deal, task, and campaign records already provide the underlying context.",
+      "tables": [
+        "focus_company_cohorts"
+      ]
+    },
+    {
+      "reason": "Operational state: Webhook delivery and dedupe log.",
+      "tables": [
+        "webhook_processing_log"
+      ]
+    },
+    {
+      "reason": "Operational state: Which pre-written webinar posts an owner removed. The posts themselves remain canonical on content_drafts.",
+      "tables": [
+        "campaign_post_dismissals"
+      ]
+    },
+    {
+      "reason": "Operational state: Which teammate owns each exec in the New in Role campaign. Ownership state; the person themselves lives in contacts.",
+      "tables": [
+        "exec_campaign_enrollments"
+      ]
+    },
+    {
+      "reason": "Operational state: Who was @mentioned in a record comment; notification routing state, not relationship context.",
+      "tables": [
+        "record_mentions"
+      ]
+    },
+    {
+      "reason": "Product configuration, personal preferences or app housekeeping, not business memory. Workspace name and plan are in manifest.json.",
+      "tables": [
+        "automation_rule_executions",
+        "automation_rules",
+        "automation_templates",
+        "buckets",
+        "calendar_display_preferences",
+        "contact_buckets",
+        "contact_field_layout",
+        "contacts_blacklist",
+        "content_triggers",
+        "crm_views",
+        "daily_pulse_sessions",
+        "deal_monitor_config",
+        "decision_templates",
+        "discovery_schedules",
+        "meeting_prep_settings",
+        "mentions",
+        "methodology_stages",
+        "nudge_dismissals",
+        "nudge_preferences",
+        "pipeline_automation_rules",
+        "pipeline_stage_requirements",
+        "profiles",
+        "revenue_goals",
+        "rhythm_sort_sessions",
+        "signal_definitions",
+        "signal_preferences",
+        "signal_types",
+        "stage_checklist_items",
+        "style_profiles",
+        "sync_preferences",
+        "team_activities",
+        "team_relationship_moments",
+        "time_blocking_preferences",
+        "tracking_workspaces",
+        "user_email_styles",
+        "user_integrations",
+        "user_intelligence_settings",
+        "user_methodologies",
+        "user_rules",
+        "warming_cadence_progress",
+        "warming_cadences",
+        "weekly_action_plans",
+        "weekly_time_blocks",
+        "worksheets",
+        "workspaces"
+      ]
+    },
+    {
+      "reason": "Prospecting, content-studio and Academy working tables; anything that became a person, company or deal is exported there.",
+      "tables": [
+        "academy_courses",
+        "academy_lessons",
+        "academy_progress",
+        "benchmark_snapshots",
+        "business_knowledge",
+        "connection_sprints",
+        "connector_scores",
+        "content_brief_hooks",
+        "content_drafts",
+        "content_outlines",
+        "content_publish_jobs",
+        "content_themes",
+        "content_video_drafts",
+        "pending_campaign_actions",
+        "prospect_deep_signals",
+        "prospect_outreach",
+        "prospects",
+        "sprint_opportunities",
+        "sprint_runs",
+        "testimonial_requests"
+      ]
+    },
+    {
+      "reason": "Raw signal evidence; the verified view is exported as company_signals from current_company_signals.",
+      "tables": [
+        "company_signals"
+      ]
+    },
+    {
+      "reason": "Regenerable AI output or derived score; the facts it was built from are exported.",
+      "tables": [
+        "aha_moments",
+        "ai_alerts",
+        "ai_playbook_suggestions",
+        "ai_playbooks",
+        "ai_recommendations_log",
+        "authority_reports",
+        "bucket_analytics",
+        "calendar_event_insights",
+        "campaign_learnings",
+        "campaign_step_outcomes",
+        "checklist_ai_suggestions",
+        "company_data_suggestions",
+        "company_features",
+        "competitive_mentions",
+        "competitive_positions",
+        "connection_recommendation_feedback",
+        "connection_recommendation_weight_adjustments",
+        "connection_recommendations",
+        "contact_data_suggestions",
+        "contact_features",
+        "contact_icp_matches",
+        "contact_icp_score_history",
+        "contact_intelligence_cards",
+        "content_recommendations",
+        "contract_alerts",
+        "deal_ai_suggestions",
+        "deal_coaching_actions",
+        "deal_intelligence",
+        "deal_velocity_recommendations",
+        "duplicate_suggestions",
+        "email_learnings",
+        "email_outcomes",
+        "fear_busters",
+        "feed_items",
+        "fox_assessments",
+        "icp_briefs",
+        "intelligence_signals",
+        "leaderboard_metrics",
+        "meeting_email_drafts",
+        "meeting_prep_docs",
+        "network_pulses",
+        "nudges",
+        "pipeline_stage_analytics",
+        "prospect_predictions",
+        "prospect_scores",
+        "sentiment_analysis_log",
+        "service_improvements",
+        "service_knowledge_log",
+        "social_topics",
+        "strategy_asset_scores",
+        "team_streaks",
+        "trend_scans",
+        "weekly_digests",
+        "whale_dossiers"
+      ]
+    },
+    {
+      "reason": "Reusable templates and packaging that only make sense inside the product; the services, proposals and campaigns built from them are exported.",
+      "tables": [
+        "bundle_tier_services",
+        "bundle_tiers",
+        "campaign_templates",
+        "email_templates",
+        "email_templates_ai",
+        "gtm_customer_profiles",
+        "gtm_problem_links",
+        "lead_magnets",
+        "linkedin_conversation_labels",
+        "linkedin_labels",
+        "linkedin_lead_sources",
+        "linkedin_snippets",
+        "linkedin_snoozes",
+        "linkedin_split_inboxes",
+        "proposal_templates",
+        "service_bundles",
+        "service_templates",
+        "service_tiers",
+        "user_deal_room_blocks",
+        "user_deal_room_templates"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Confidential paid-diagnostic engagement state is read only through its own contracts, never as generic AI context.",
+      "tables": [
+        "client_diagnostics"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Confidential paid-diagnostic sources, evidence, findings and history are read only through their own contracts, never as generic AI context.",
+      "tables": [
+        "client_diagnostic_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Connected mailbox account and token metadata.",
+      "tables": [
+        "email_accounts"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Connected-app keys, grants, subscriptions, logs, and OAuth state.",
+      "tables": [
+        "mcp_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Dependent rows captured with a Company delete so Undo can restore them; never AI context.",
+      "tables": [
+        "company_delete_contract_secondary_items"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Ephemeral private transaction authorization for canonical Account creator rehoming. It is a mutation fence, never customer knowledge or AI context.",
+      "tables": [
+        "account_creator_rehome_authorizations"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Ephemeral transaction authority for advancing the campaign sender rotation counter during the trusted pool update. It is a security fence, never customer knowledge or AI context.",
+      "tables": [
+        "campaign_sender_counter_authorizations"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Ephemeral transaction authority for assigning immutable campaign sender snapshots during the trusted pool update. It is a security fence, never customer knowledge or AI context.",
+      "tables": [
+        "campaign_sender_assignment_authorizations"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Ephemeral transaction authority for closing current Account owners during archive or merge. It is a security fence, never customer knowledge or AI context.",
+      "tables": [
+        "account_lifecycle_owner_close_authorizations"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: HMAC-only erased-identifier tombstones; never user or AI context.",
+      "tables": [
+        "core_erased_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Immutable outcome correction snapshots are audit evidence and must not enter generic Assist retrieval.",
+      "tables": [
+        "zenabm_outcome_link_reviews"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Mailbox identities and provider configuration.",
+      "tables": [
+        "email_identities"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Non-PII privacy-erasure proof. It is an operator compliance record, never relationship evidence or AI context.",
+      "tables": [
+        "personal_account_erasure_tombstones"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: OAuth tokens and pending authorization state.",
+      "tables": [
+        "oauth_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Observed outcome links are scoped to explicit same-company deals and remain outside generic Assist retrieval until a dedicated reader is validated.",
+      "tables": [
+        "zenabm_outcome_links"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Per-action execution receipts proving an automation step ran exactly once; the resulting record change is the customer-facing truth.",
+      "tables": [
+        "automation_action_receipts"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Pre-delete Company snapshot retained only to power Undo; never AI context.",
+      "tables": [
+        "company_delete_contract_snapshots"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Privacy-bounded mutation audit ledger; exposed only through the policy-scoped receipt contract, never as AI context.",
+      "tables": [
+        "core_mutation_receipt*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private blocked-validation replay details for Deal close and correction. They must never become generic AI context.",
+      "tables": [
+        "deal_close_failure_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private campaign mailbox routing configuration is not generic relationship context.",
+      "tables": [
+        "campaign_sender_pool"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private human coaching and delivery state must never become AI knowledge or public content.",
+      "tables": [
+        "human_coaching_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private idempotency and replay ledger for Account owner mutations; never relationship evidence or AI context.",
+      "tables": [
+        "account_owner_assignment_receipts"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private immutable Deal close and correction replay payloads. Canonical commercial truth remains on the Deal and its outcome event.",
+      "tables": [
+        "deal_outcome_mutation_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private owner feedback; no generic AI indexing.",
+      "tables": [
+        "growth_review_decisions"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private repeatable growth state is available only through owner-scoped or explicitly consented readers.",
+      "tables": [
+        "growth_cadence_rules",
+        "growth_contributions",
+        "growth_event_changes",
+        "growth_event_variants",
+        "growth_events",
+        "growth_evidence_links",
+        "growth_invitation_evidence",
+        "growth_invitations",
+        "growth_materialization",
+        "growth_occurrences",
+        "growth_plan_versions",
+        "growth_plans"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private reviewed drafts, task and send receipts, and usage events are not relationship evidence.",
+      "tables": [
+        "meeting_follow_through*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private tenant-bound terminal RPC responses for exact retry replay. Product state remains on the Account or Deal; this ledger is never AI context.",
+      "tables": [
+        "client_contract_command_results"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private transaction-local authorization fence for the exact proposal delivery receipt transition; never customer knowledge or AI context.",
+      "tables": [
+        "proposal_delivery_mutation_context"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private transaction-local scope for exact campaign privacy erasure; never customer knowledge or AI context.",
+      "tables": [
+        "campaign_privacy_erasure_scopes"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Private visitor opt-out capability state; never relationship context.",
+      "tables": [
+        "visitor_email_suppressions"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Provider-sourced account metrics are exposed only through the authenticated Focus Companies workflow until a workspace-scoped Assist reader is validated.",
+      "tables": [
+        "zenabm_account_engagement"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Raw ABM review rows include unfiltered provider payloads; Assist may read only the tenant-scoped view that returns user-reviewed rows and omits provider evidence.",
+      "tables": [
+        "zenabm_review_actions"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Restricted keyed erasure registry material; never user or AI context.",
+      "tables": [
+        "core_erasure_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Row-level payloads of a pre-delete Company snapshot, retained only to power Undo.",
+      "tables": [
+        "company_delete_contract_snapshot_items"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Service-only workshop applicant emails, payloads, token hashes and referral receipts are outside CRM tenant scope; never generic AI context.",
+      "tables": [
+        "workshop_applications"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Service-role-only allowlist for the invite-only OAuth signup gate. It is an access-control fence holding third-party emails, never customer knowledge or AI context.",
+      "tables": [
+        "approved_signup_emails"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Single-row shared secret proving a request came from our own pg_cron jobs. Owner/service-role only; never customer knowledge or AI context.",
+      "tables": [
+        "internal_cron_auth"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Stored terminal responses for replayed Contact contract calls; the saved Contact is the customer-facing truth.",
+      "tables": [
+        "contact_contract_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Stored terminal responses for replayed Deal delete/restore calls; the Deal row is the customer-facing truth.",
+      "tables": [
+        "deal_lifecycle_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Stored terminal responses for replayed Deal stage moves; the Deal stage is the customer-facing truth.",
+      "tables": [
+        "deal_stage_move_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Stored terminal responses for replayed Opportunity delete/restore calls; the Opportunity row is the customer-facing truth.",
+      "tables": [
+        "opportunity_lifecycle_replay_payloads"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Telegram account-linking credentials.",
+      "tables": [
+        "telegram_link_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Telegram connection credentials and status.",
+      "tables": [
+        "telegram_connections"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Telegram session state.",
+      "tables": [
+        "telegram_sessions"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Transaction-local erasure authority rows. Access control state, not relationship context.",
+      "tables": [
+        "growth_erasure_scopes"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Unmatched and conflicting provider identities require explicit human review and must not enter generic Assist retrieval.",
+      "tables": [
+        "zenabm_identity_reviews"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: User AI provider configuration and encrypted credentials.",
+      "tables": [
+        "user_ai_*"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Webhook endpoints and secrets.",
+      "tables": [
+        "user_webhooks"
+      ]
+    },
+    {
+      "reason": "Security-sensitive: Zapier authorization and connection credentials.",
+      "tables": [
+        "zapier_*"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Invitation delivery receipts and retry state; recipient addresses and process health, not relationship context.",
+      "tables": [
+        "workspace_invitation_delivery_attempts"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Invitation tokens",
+      "tables": [
+        "workspace_invitations"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Permission mappings",
+      "tables": [
+        "workspace_members"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Private paid activation and failure receipts are operational evidence, not relationship context.",
+      "tables": [
+        "paid_purchase_activation_journeys"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Private Team application decisions are authorization state, not relationship context.",
+      "tables": [
+        "team_checkout_approvals"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Records which actor may change a custom field definition; an authority mapping, not relationship context.",
+      "tables": [
+        "custom_field_definition_delegations"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Removed SSO providers and their verified domains; gates converting members to password accounts",
+      "tables": [
+        "workspace_sso_removed_connections"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Role assignments",
+      "tables": [
+        "workspace_user_roles"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Role definitions",
+      "tables": [
+        "user_roles"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Security audit logs",
+      "tables": [
+        "workspace_access_log"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-managed commercial capability assignments, not relationship context.",
+      "tables": [
+        "workspace_capability_grants"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-only checkout intents contain billing identity and payment session identifiers.",
+      "tables": [
+        "stripe_checkout_attempts"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-only immutable purchase-to-account receipts are authorization state, not AI context.",
+      "tables": [
+        "paid_subscription_owners"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-only paid-checkout login delivery receipts can temporarily contain a bearer link and must never become AI context.",
+      "tables": [
+        "paid_checkout_login_email_receipts"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-only Team-upgrade cancellation receipts contain billing identifiers and must never become AI context.",
+      "tables": [
+        "team_upgrade_proration_receipts"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Service-only workspace billing provenance is not relationship context.",
+      "tables": [
+        "workspace_subscription_claim_receipts"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: Single-use paid-checkout login handoff receipts contain authentication state and must never become AI context.",
+      "tables": [
+        "paid_checkout_handoffs"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: SSO domain verification tokens",
+      "tables": [
+        "workspace_sso_domains"
+      ]
+    },
+    {
+      "reason": "Sign-in and authorisation state: SSO identity provider configuration",
+      "tables": [
+        "workspace_sso_connections"
+      ]
+    },
+    {
+      "reason": "System internals: Admin-defined per-step conversion targets for the growth/case-study funnels; configuration data, not relationship context.",
+      "tables": [
+        "growth_funnel_goals"
+      ]
+    },
+    {
+      "reason": "System internals: Anonymous per-step page views for the public funnels; analytics only, not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "growth_funnel_page_views"
+      ]
+    },
+    {
+      "reason": "System internals: Assist source-access registry, not customer data.",
+      "tables": [
+        "superbrain_source_registry"
+      ]
+    },
+    {
+      "reason": "System internals: Automation failure/debug log. Operational, not relationship context.",
+      "tables": [
+        "automation_failures"
+      ]
+    },
+    {
+      "reason": "System internals: Background LinkedIn-search workqueue drained by the Chrome extension. Operational state, not relationship data.",
+      "tables": [
+        "linkedin_search_jobs"
+      ]
+    },
+    {
+      "reason": "System internals: Chrome extension acceptance-check observability. User-facing relationship outcomes are stored on contacts and drip_connect_queue.",
+      "tables": [
+        "linkedin_connection_check_runs"
+      ]
+    },
+    {
+      "reason": "System internals: Chrome extension parse telemetry. Operational observability.",
+      "tables": [
+        "extension_parse_telemetry"
+      ]
+    },
+    {
+      "reason": "System internals: Config: sources that stay searchable but are never embedded (mirrors contract sources without the rag surface).",
+      "tables": [
+        "rag_indexing_exclusions"
+      ]
+    },
+    {
+      "reason": "System internals: Connected-app execution audit logs",
+      "tables": [
+        "mcp_outbound_call_logs"
+      ]
+    },
+    {
+      "reason": "System internals: Connected-app pending action state. Operational.",
+      "tables": [
+        "mcp_pending_actions"
+      ]
+    },
+    {
+      "reason": "System internals: Connected-app tool execution logs. Operational observability.",
+      "tables": [
+        "mcp_execution_logs"
+      ]
+    },
+    {
+      "reason": "System internals: Connector sync run logs. Operational observability, not relationship data.",
+      "tables": [
+        "integration_sync_logs"
+      ]
+    },
+    {
+      "reason": "System internals: Daily ad spend/clicks per traffic source for the funnel-economics (EPC/ROAS/CAC) dashboard; marketing analytics, not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "funnel_ad_daily"
+      ]
+    },
+    {
+      "reason": "System internals: Daily Google Analytics 4 metrics (sessions, source/medium, conversions) synced by sync-analytics-daily. Company-level analytics, not per-user relationship data.",
+      "tables": [
+        "ga4_daily"
+      ]
+    },
+    {
+      "reason": "System internals: Daily Mixpanel product-analytics metrics (event counts, unique users) synced by sync-analytics-daily. Company-level analytics, not per-user relationship data.",
+      "tables": [
+        "mixpanel_daily"
+      ]
+    },
+    {
+      "reason": "System internals: Database migration metadata",
+      "tables": [
+        "schema_migrations"
+      ]
+    },
+    {
+      "reason": "System internals: Demo walkthrough infrastructure — product demos, anonymous view/step analytics. Not relationship data.",
+      "tables": [
+        "demo_*"
+      ]
+    },
+    {
+      "reason": "System internals: Derived routing table holding one public web address per Company. Assist already reads Audit content through company_briefs; the slug adds no relationship context and would only invite fabricated links.",
+      "tables": [
+        "value_audit_company_addresses"
+      ]
+    },
+    {
+      "reason": "System internals: Durable LinkedIn post signal-extraction queue. User-facing signals are stored in intelligence_items and raw evidence in linkedin_posts.",
+      "tables": [
+        "linkedin_post_signal_jobs"
+      ]
+    },
+    {
+      "reason": "System internals: Email import analysis/classification retry ledger and dead-letter visibility. User-facing intelligence is stored on emails and email_threads, not indexed from this operational failure log.",
+      "tables": [
+        "email_analysis_failures"
+      ]
+    },
+    {
+      "reason": "System internals: Exit-overlay email opt-in log; the captured email becomes a contact via find_or_create_contact (which Superbrain already indexes). The log itself is operational.",
+      "tables": [
+        "video_optins"
+      ]
+    },
+    {
+      "reason": "System internals: External provider id to Deal mapping that makes integration upserts idempotent; the Deal carries the customer-facing data.",
+      "tables": [
+        "deal_provider_identities"
+      ]
+    },
+    {
+      "reason": "System internals: First 30 Days course instrumentation: dedupe ledger for stall nudges (one row per user, gate, step); delivery bookkeeping, not relationship context.",
+      "tables": [
+        "course_nudges"
+      ]
+    },
+    {
+      "reason": "System internals: First 30 Days course instrumentation: per-week weekly-review completion rows used to count consecutive reviews for the operator_day30 graduation gate; analytics only, not relationship context.",
+      "tables": [
+        "course_weekly_reviews"
+      ]
+    },
+    {
+      "reason": "System internals: High-volume granular playback telemetry (play/pause/seek/progress) for drop-off curves. Not relationship context.",
+      "tables": [
+        "video_watch_events"
+      ]
+    },
+    {
+      "reason": "System internals: High-volume internal audit trail",
+      "tables": [
+        "entity_audit_log"
+      ]
+    },
+    {
+      "reason": "System internals: Idempotent Actions evidence ledger. User-facing targets and scored results are exposed through weekly_action_plans and canonical Say/Do summaries.",
+      "tables": [
+        "action_activity_events"
+      ]
+    },
+    {
+      "reason": "System internals: Immutable frozen Say/Do score snapshots derived from weekly_action_plans and the Actions evidence ledger; a cache that stops a finalized weekly score from drifting, not a source of relationship context.",
+      "tables": [
+        "action_say_do_snapshots"
+      ]
+    },
+    {
+      "reason": "System internals: Immutable published calculator versions addressable by opaque link token. Public snapshots carry no answer results; they are definition+metadata snapshots only.",
+      "tables": [
+        "client_tool_public_snapshots"
+      ]
+    },
+    {
+      "reason": "System internals: Internal activation-funnel instrumentation (time-to-value milestones for the admin Activation dashboard); analytics only, not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "activation_milestones"
+      ]
+    },
+    {
+      "reason": "System internals: Internal Assist pilot cohort and outcome ledger. It is operational measurement, never relationship context or AI source material.",
+      "tables": [
+        "assist_pilot_*"
+      ]
+    },
+    {
+      "reason": "System internals: Internal automation queue",
+      "tables": [
+        "automation_event_queue"
+      ]
+    },
+    {
+      "reason": "System internals: Internal background rescore requests raised by ICP changes and repair backfills; operational queue state, not relationship knowledge.",
+      "tables": [
+        "icp_rescore_requests"
+      ]
+    },
+    {
+      "reason": "System internals: Internal browser identity attribution. Not AI context.",
+      "tables": [
+        "video_engagement_bindings"
+      ]
+    },
+    {
+      "reason": "System internals: Internal calculator draft state: generation claims, definitions and status. User-facing calculated results are never persisted; this table is plumbing for the draft-ready transition.",
+      "tables": [
+        "client_tool_drafts"
+      ]
+    },
+    {
+      "reason": "System internals: Internal dedup/audit log for hot-chat alerts (notify-hot-chat). Not relationship data.",
+      "tables": [
+        "chat_alert_log"
+      ]
+    },
+    {
+      "reason": "System internals: Internal Jungler pilot dedupe and provider audit ledger; user-facing signals are stored in social_signals, linkedin_contact_engagements, and linkedin_social_leads.",
+      "tables": [
+        "jungler_pilot_events"
+      ]
+    },
+    {
+      "reason": "System internals: Internal kill-switch and cap configuration for the guarded enrichment cron. Operational safety config, not relationship knowledge.",
+      "tables": [
+        "enrichment_cron_control"
+      ]
+    },
+    {
+      "reason": "System internals: Internal latency telemetry for the post-meeting orchestrator",
+      "tables": [
+        "post_meeting_processing_metrics"
+      ]
+    },
+    {
+      "reason": "System internals: Internal pilot playback telemetry and session capability hashes. CRM reads use scoped summary RPCs, never raw AI retrieval.",
+      "tables": [
+        "video_engagement_sessions"
+      ]
+    },
+    {
+      "reason": "System internals: Internal pilot publishing configuration, not relationship context.",
+      "tables": [
+        "video_engagement_placements"
+      ]
+    },
+    {
+      "reason": "System internals: Internal prospecting cache for recovered direct employers from recruiter job posts. User-facing evidence is stored on contacts and queue source metadata.",
+      "tables": [
+        "prospecting_recruiter_recoveries"
+      ]
+    },
+    {
+      "reason": "System internals: Intro batch job state. The intros themselves live on contact activity.",
+      "tables": [
+        "intro_request_batches"
+      ]
+    },
+    {
+      "reason": "System internals: LinkedIn drip work queue. Relationship outcomes live on contacts and linkedin_messages.",
+      "tables": [
+        "drip_connect_queue"
+      ]
+    },
+    {
+      "reason": "System internals: Meeting-prep work queue. The user-facing artifact is meeting_prep_docs.",
+      "tables": [
+        "meeting_prep_queue"
+      ]
+    },
+    {
+      "reason": "System internals: Notification dedup keys. Pure infrastructure.",
+      "tables": [
+        "telegram_notification_dedup"
+      ]
+    },
+    {
+      "reason": "System internals: One-off audit snapshot from the 2026-05-19 LinkedIn message dedup cleanup migration. Backoffice recovery trail, not relationship data.",
+      "tables": [
+        "_linkedin_dedup_audit_*"
+      ]
+    },
+    {
+      "reason": "System internals: One-off audit snapshot from the 2026-05-25 LinkedIn message misattribution cleanup migration. Backoffice recovery trail, not relationship data.",
+      "tables": [
+        "_linkedin_misattribution_audit_*"
+      ]
+    },
+    {
+      "reason": "System internals: One-off work list for re-sorting mis-labelled email (2026-10). Holds only email ids; the result is stored on email_messages.",
+      "tables": [
+        "email_resort_queue"
+      ]
+    },
+    {
+      "reason": "System internals: Operational completion ledger for the imported-email analysis retry worker; outcomes belong in email messages, threads, and the failure ledger.",
+      "tables": [
+        "email_analysis_retry_runs"
+      ]
+    },
+    {
+      "reason": "System internals: Operational Firecrawl monitor state; user-visible website changes are stored in company_signals and intelligence_items.",
+      "tables": [
+        "company_website_watches"
+      ]
+    },
+    {
+      "reason": "System internals: Operational queue/status for background Rhythm-brief research prep; the prepared research is stored on contacts.signaliz_data, not here.",
+      "tables": [
+        "rhythm_brief_prep"
+      ]
+    },
+    {
+      "reason": "System internals: Operational run history for website monitoring; user-visible signals are stored in company_monitoring_snapshots and intelligence_items.",
+      "tables": [
+        "company_monitoring_runs"
+      ]
+    },
+    {
+      "reason": "System internals: Per-user on/off and ordering for the sources feeding the daily Today list. UI configuration, not relationship context.",
+      "tables": [
+        "daily_source_preferences"
+      ]
+    },
+    {
+      "reason": "System internals: PostgreSQL system tables",
+      "tables": [
+        "pg_*"
+      ]
+    },
+    {
+      "reason": "System internals: Pre-signup Network Revenue Audit lead capture (anonymous scan results + assembled deliverable) for the free audit lead magnet; hydrated into onboarding at signup, not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "connector_sessions"
+      ]
+    },
+    {
+      "reason": "System internals: Precomputed Growth Agent opening turns, keyed by lead magnet and greeting branch. A latency cache over text the assistant wrote itself; holds no visitor and no relationship context.",
+      "tables": [
+        "growth_agent_greeting_cache"
+      ]
+    },
+    {
+      "reason": "System internals: Private invitation retry deduplication keys. User-facing activity lives in action_activity_events and sprint totals.",
+      "tables": [
+        "connection_sprint_action_receipts"
+      ]
+    },
+    {
+      "reason": "System internals: Private observation-to-invitation retry mappings; not user-facing activity.",
+      "tables": [
+        "manual_invitation_observation_receipts"
+      ]
+    },
+    {
+      "reason": "System internals: Public /growth founding-member funnel leads and per-step analytics; not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "growth_funnel_leads"
+      ]
+    },
+    {
+      "reason": "System internals: Public authority lead-capture records, not logged-in relationship context.",
+      "tables": [
+        "authority_score_leads"
+      ]
+    },
+    {
+      "reason": "System internals: Public Commercial Spine lead magnet submissions and generated reports; not logged-in relationship context for Superbrain indexing.",
+      "tables": [
+        "commercial_spine_leads"
+      ]
+    },
+    {
+      "reason": "System internals: RAG embedding job queue",
+      "tables": [
+        "rag_embedding_jobs"
+      ]
+    },
+    {
+      "reason": "System internals: RAG indexing queue",
+      "tables": [
+        "rag_index_queue"
+      ]
+    },
+    {
+      "reason": "System internals: RAG internal storage",
+      "tables": [
+        "rag_document_chunks",
+        "rag_documents"
+      ]
+    },
+    {
+      "reason": "System internals: RAG storage, queues, caches, feedback, and ranking internals.",
+      "tables": [
+        "rag_*"
+      ]
+    },
+    {
+      "reason": "System internals: Raw embeddings",
+      "tables": [
+        "content_embeddings"
+      ]
+    },
+    {
+      "reason": "System internals: Request rate-limit log with non-UUID IDs",
+      "tables": [
+        "request_rate_log"
+      ]
+    },
+    {
+      "reason": "System internals: Scan session state rows. Operational.",
+      "tables": [
+        "scan_sessions"
+      ]
+    },
+    {
+      "reason": "System internals: Scoped resume capability hashes, not relationship context.",
+      "tables": [
+        "video_engagement_links"
+      ]
+    },
+    {
+      "reason": "System internals: Scoring work queue state. Operational, not relationship data.",
+      "tables": [
+        "contact_scoring_queue"
+      ]
+    },
+    {
+      "reason": "System internals: Scrape run log. Detected signals live in social_signals/linkedin_* sources.",
+      "tables": [
+        "social_scrape_log"
+      ]
+    },
+    {
+      "reason": "System internals: Short-lived job bookkeeping for Strategy generations. The finished work lives in its own table; this row is plumbing, not relationship context.",
+      "tables": [
+        "strategy_generation_jobs"
+      ]
+    },
+    {
+      "reason": "System internals: Skill version snapshots. The active skill content is indexed via company_skills/user skills sources.",
+      "tables": [
+        "skill_versions"
+      ]
+    },
+    {
+      "reason": "System internals: Supabase internal tables",
+      "tables": [
+        "supabase_*"
+      ]
+    },
+    {
+      "reason": "System internals: Superbrain configuration and status metadata",
+      "tables": [
+        "superbrain_*"
+      ]
+    },
+    {
+      "reason": "System internals: UI flow session telemetry. Product analytics, not relationship data.",
+      "tables": [
+        "flow_sessions"
+      ]
+    },
+    {
+      "reason": "System internals: Unmatched participant triage queue. Resolved participants become contacts.",
+      "tables": [
+        "unmatched_meeting_participants"
+      ]
+    },
+    {
+      "reason": "System internals: Voice-of-market marketing pipeline. Backoffice, service-role only, not relationship data.",
+      "tables": [
+        "vom_*"
+      ]
+    },
+    {
+      "reason": "System internals: Webhook debug logs",
+      "tables": [
+        "webhook_logs"
+      ]
+    },
+    {
+      "reason": "System internals: Withdrawn LinkedIn invitations and their re-invite block, used by the connection queue. The user-facing record is the contact timeline entry written with each withdrawal.",
+      "tables": [
+        "linkedin_invitation_withdrawals"
+      ]
+    },
+    {
+      "reason": "Tracking, telemetry and working copies of the retiring opportunities rail; the records they describe are exported.",
+      "tables": [
+        "campaign_email_tracking",
+        "company_monitoring_snapshots",
+        "company_signal_feedback",
+        "contact_bigmarker_events",
+        "contact_education",
+        "contact_identity",
+        "contact_job_changes",
+        "contact_reminders",
+        "contact_scoreapp_results",
+        "contact_sources",
+        "deal_checklist_responses",
+        "deal_close_date_history",
+        "deal_room_item_events",
+        "deal_room_view_notifications",
+        "deal_room_views",
+        "deal_stage_responses",
+        "documents",
+        "email_attachments",
+        "email_open_tracking",
+        "external_events",
+        "inferred_email_connections",
+        "link_clicks",
+        "linkedin_contact_engagements",
+        "linkedin_posts",
+        "linkedin_social_leads",
+        "newsletter_stats_snapshots",
+        "newsletter_subscribers",
+        "opportunity_calls",
+        "opportunity_documents",
+        "opportunity_stage_history",
+        "opportunity_stakeholders",
+        "political_map_snapshots",
+        "signal_attributions",
+        "social_comment_drafts",
+        "social_engagement_queue",
+        "social_engagements",
+        "telegram_conversation_history",
+        "tracked_companies",
+        "tracking_high_value_email_alerts",
+        "tracking_links",
+        "user_documents",
+        "video_views",
+        "videos",
+        "visitor_events"
+      ]
+    }
+  ],
+  "excluded_table_count": 662,
+  "never_exported_columns": [
+    "embedding (unless switched on)",
+    "*_token",
+    "oauth_data"
+  ],
+  "third_party_data_note": "Transcripts, emails, chat and LinkedIn messages contain the words and personal data of people outside the firm. The firm owns these records and is their data controller."
+}
