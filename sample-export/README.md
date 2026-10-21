@@ -94,7 +94,7 @@ Definitions version: 2026-10-20.
 - **introduction_requests** (from `introduction_requests`): Warm introduction requests and their outcomes.
 - **team_intro_requests** (from `team_intro_requests`): Introduction asks between teammates.
 - **relationship_paths** (from `relationship_paths`): Warm paths to target people through connectors.
-- **circles** (from `circles_of_leverage`): Circles of leverage around a target.
+- **circles** (from `circles_of_leverage`): Circles: the people around one target, each asked to help open a conversation.
 - **circle_members** (from `circle_members`): Members of each circle.
 - **proposals** (from `proposals`): Proposals with their full content (also written to proposals/).
 - **proposal_versions** (from `proposal_versions`): Every proposal version as a frozen document.
@@ -232,7 +232,7 @@ Every table in the product that is not exported is listed here and in `manifest.
 - Derived from deals, which is exported. (1 table: client_engagement_states)
 - Derived from proposal_learnings, which is exported. (1 table: proposal_learning_plan_usage_attempts)
 - Derived from proposals, which is exported. (5 tables: proposal_delivery_attempts, proposal_delivery_receipts, proposal_generation_operations, proposal_generation_plan_usage_attempts, proposal_export_reconciliation_events)
-- Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020). (5 tables: testimonials, user_case_studies, knowledge_base_items, methodologies, outcome_patterns)
+- Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id. (5 tables: testimonials, user_case_studies, knowledge_base_items, methodologies, outcome_patterns)
 - Import working tables: Import job tracking (1 table: csv_import_jobs)
 - Import working tables: Temporary bucket-game/import staging; accepted contacts are canonical. (1 table: pending_contacts)
 - Import working tables: Temporary dedupe candidates (1 table: csv_import_match_candidates)

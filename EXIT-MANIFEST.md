@@ -145,7 +145,7 @@ Ask any vendor holding your company's context what you would get to take with yo
 | `introduction_requests` | Warm introduction requests and their outcomes. | yes |
 | `team_intro_requests` | Introduction asks between teammates. | yes |
 | `relationship_paths` | Warm paths to target people through connectors. | yes |
-| `circles` | Circles of leverage around a target. | yes |
+| `circles` | Circles: the people around one target, each asked to help open a conversation. | yes |
 | `circle_members` | Members of each circle. | yes |
 | `proposals` | Proposals with their full content (also written to proposals/). | yes |
 | `proposal_versions` | Every proposal version as a frozen document. | yes |

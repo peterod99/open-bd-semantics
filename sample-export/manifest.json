@@ -1856,7 +1856,7 @@
     },
     {
       "dataset": "circles",
-      "description": "Circles of leverage around a target.",
+      "description": "Circles: the people around one target, each asked to help open a conversation.",
       "reach_flagged": false,
       "sources": [
         {
@@ -3333,23 +3333,23 @@
     },
     {
       "pattern": "testimonials",
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020)."
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id."
     },
     {
       "pattern": "user_case_studies",
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020)."
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id."
     },
     {
       "pattern": "knowledge_base_items",
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020)."
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id."
     },
     {
       "pattern": "methodologies",
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020)."
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id."
     },
     {
       "pattern": "outcome_patterns",
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020)."
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id."
     },
     {
       "pattern": "company_signals",
@@ -6068,8 +6068,8 @@
     {
       "path": "README.md",
       "kind": "meta",
-      "bytes": 77718,
-      "sha256": "23f515ebb7b23276fc3fac68fe8873574800b51140e58a6a7f3a11069e1139ae"
+      "bytes": 77710,
+      "sha256": "3f7e5f27d5adeaea6d131e23270a83fbdbe5e88e2ebd7af5689e44a6c532c8a3"
     },
     {
       "path": "semantics/nynch-bd.ossie.yaml",
@@ -6085,5 +6085,5 @@
     }
   ],
   "files_total": 171,
-  "bytes_total": 291016
+  "bytes_total": 291008
 }

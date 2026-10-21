@@ -1188,7 +1188,7 @@
     },
     {
       "dataset": "circles",
-      "description": "Circles of leverage around a target.",
+      "description": "Circles: the people around one target, each asked to help open a conversation.",
       "sources": [
         {
           "table": "circles_of_leverage",
@@ -2157,7 +2157,7 @@
       ]
     },
     {
-      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id (BACKLOG MEMORY-EXPORT-USER-ONLY-TABLES-20261020).",
+      "reason": "Firm memory that carries only a user id, not a workspace id. Exporting it by membership would put the rows a teammate holds in another workspace into this one, so it waits until the table carries workspace_id.",
       "tables": [
         "knowledge_base_items",
         "methodologies",
